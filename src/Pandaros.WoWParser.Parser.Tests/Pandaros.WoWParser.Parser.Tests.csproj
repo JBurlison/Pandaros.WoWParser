@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Pandaros.WoWLogParser.Parser\Pandaros.WoWLogParser.Parser.csproj" />
+    <ProjectReference Include="..\Pandaros.WoWParser.Parser\Pandaros.WoWLogParser.Parser.csproj" />
   </ItemGroup>
 
   <ItemGroup>
