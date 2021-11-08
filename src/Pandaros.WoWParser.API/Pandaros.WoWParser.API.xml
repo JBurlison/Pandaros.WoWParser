@@ -15,7 +15,7 @@
             </summary>
             <param name="logger"></param>
         </member>
-        <member name="M:Pandaros.WoWParser.API.Api.v1.Controllers.UserAccountController.CreateUser(Pandaros.WoWParser.API.Api.v1.ViewModels.UserViewV1)">
+        <member name="M:Pandaros.WoWParser.API.Api.v1.Controllers.UserAccountController.CreateUser(Pandaros.WoWParser.API.Api.v1.ViewModels.CreateUserViewV1)">
             <summary>
                 Creates a new User
             </summary>
@@ -26,12 +26,24 @@
         </member>
         <member name="M:Pandaros.WoWParser.API.Api.v1.Controllers.UserAccountController.GetUser(System.String)">
             <summary>
-                Creates a new User
+                Gets a existing User
             </summary>
             <remarks>
-                Creates a new User
+                Gets a existing User
             </remarks>
-            <response code="201">New user was successfully created</response>
+            <response code="201">Returns the user object</response>
+        </member>
+        <member name="M:Pandaros.WoWParser.API.Api.v1.Controllers.UserAccountController.LogIn(System.String,System.String)">
+            <remarks>
+                Logs a user in
+            </remarks>
+            <response code="201">Returns the user object</response>
+        </member>
+        <member name="M:Pandaros.WoWParser.API.Api.v1.Controllers.UserAccountController.LogOut(System.String)">
+            <remarks>
+                Logs a user out
+            </remarks>
+            <response code="201">Logged out on the server</response>
         </member>
         <member name="T:Pandaros.WoWParser.API.WeatherForecast">
             <summary>
