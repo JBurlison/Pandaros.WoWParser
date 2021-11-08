@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31727.386
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pandaros.WoWParser.API", "Pandaros.WoWParser.API\Pandaros.WoWParser.API.csproj", "{046BE2A1-9F84-4ACA-BEDA-DD4791318559}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pandaros.WoWParser.Parser.Tests", "Pandaros.WoWParser.Parser.Tests\Pandaros.WoWParser.Parser.Tests.csproj", "{24465E0B-5FD3-4E5D-AF14-3E61809DBB8B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pandaros.WoWLogParser.Parser", "Pandaros.WoWParser.Parser\Pandaros.WoWLogParser.Parser.csproj", "{99E54B5B-F8E6-4FB2-B974-17A64819EDB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pandaros.WoWLogParser.UI", "Pandaros.WoWParser.UI\Pandaros.WoWLogParser.UI.csproj", "{2E859A72-6E4B-49D4-98AD-FD927D47774E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{046BE2A1-9F84-4ACA-BEDA-DD4791318559}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{046BE2A1-9F84-4ACA-BEDA-DD4791318559}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{046BE2A1-9F84-4ACA-BEDA-DD4791318559}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{046BE2A1-9F84-4ACA-BEDA-DD4791318559}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24465E0B-5FD3-4E5D-AF14-3E61809DBB8B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24465E0B-5FD3-4E5D-AF14-3E61809DBB8B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24465E0B-5FD3-4E5D-AF14-3E61809DBB8B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24465E0B-5FD3-4E5D-AF14-3E61809DBB8B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99E54B5B-F8E6-4FB2-B974-17A64819EDB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99E54B5B-F8E6-4FB2-B974-17A64819EDB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99E54B5B-F8E6-4FB2-B974-17A64819EDB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99E54B5B-F8E6-4FB2-B974-17A64819EDB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E859A72-6E4B-49D4-98AD-FD927D47774E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E859A72-6E4B-49D4-98AD-FD927D47774E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E859A72-6E4B-49D4-98AD-FD927D47774E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E859A72-6E4B-49D4-98AD-FD927D47774E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {02ADA6D8-C054-4928-B4FF-FCB566604998}
+	EndGlobalSection
+EndGlobal
