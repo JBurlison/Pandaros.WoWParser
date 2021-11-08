@@ -44,7 +44,11 @@ namespace Pandaros.WoWParser.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.IgnoreNullValues = true;
+                options.JsonSerializerOptions.IgnoreReadOnlyProperties = true;
+            });
             services.AddApiVersioning();
 
             services.AddVersionedApiExplorer(setup =>

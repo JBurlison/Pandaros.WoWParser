@@ -55,7 +55,6 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
             return new UserViewV1()
             {
                 EmailAddress = "foo@bar.com",
-                PasswordHash = "1j25kjwp89351jikj1i2u587asdf",
                 Username = "Pandaros",
                 WebAdmin = false,
                 CharacterIDs = new List<string>()
