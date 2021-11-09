@@ -12,6 +12,7 @@ namespace Pandaros.WoWParser.API.DomainModels
         public string EmailAddress { get; set; }
 
         public string PasswordHash { get; set; }
+        public string Timezone { get; set; }
 
         public bool WebAdmin { get; set; } = false;
 

@@ -9,19 +9,18 @@ namespace Pandaros.WoWParser.API.Api.v1.ViewModels
     public class CreateUserViewV1
     {
         [Required]
-        [Editable(true)]
         public string Username { get; set; }
 
         [Required]
-        [Editable(false)]
         public string EmailAddress { get; set; }
 
         [Required]
-        [Editable(true)]
         public string Password { get; set; }
 
         [Required]
-        [Editable(true)]
+        public string Timezone { get; set; }
+
+        [Required]
         public bool WebAdmin { get; set; } = false;
     }
 }
