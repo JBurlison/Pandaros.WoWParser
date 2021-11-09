@@ -28,6 +28,20 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         }
 
         /// <summary>
+        ///     Creates a new User, or links oauth to existing user
+        /// </summary>
+        /// <remarks>
+        ///     Creates a new User, or links oauth to existing user
+        /// </remarks>
+        /// <response code="201">New user was successfully created</response>
+        [HttpPost, Route("CreateOAuthUser")]
+        [MapToApiVersion("1.0")]
+        public void CreateOAuthUser(string name, string email, string oAuthToken)
+        {
+
+        }
+
+        /// <summary>
         ///     Creates a new User
         /// </summary>
         /// <remarks>

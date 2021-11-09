@@ -27,7 +27,7 @@ namespace Pandaros.WoWLogParser.Tests
             logger.Log("Starting Parse.");
             Stopwatch sw = new Stopwatch();
             sw.Start();
-            clp.ParseToEnd(@"C:\Program Files\Ascension Launcher\resources\client\Logs\1101\");
+            clp.ParseToEnd(@"C:\Program Files\Ascension Launcher\resources\client\Logs\1108\");
             sw.Stop();
             logger.Log($"Parsed in {sw.Elapsed}.");
             Thread.Sleep(1000);
