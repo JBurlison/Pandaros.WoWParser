@@ -62,14 +62,14 @@ namespace PandarosWoWLogParser
         public virtual bool TryGetSourceOwnerName(ICombatEvent combatEvent, out string owner)
         {
             owner = null;
-            return combatEvent.SourceFlags.GetController == UnitFlags.Controller.Player &&
+            return combatEvent.SourceFlags.Controller == UnitFlags.UnitController.Player &&
                 EntitytoOwnerMap.TryGetValue(combatEvent.SourceGuid, out owner);
         }
 
         public virtual bool TryGetDestOwnerName(ICombatEvent combatEvent, out string owner)
         {
             owner = null;
-            return combatEvent.DestFlags.GetController == UnitFlags.Controller.Player &&
+            return combatEvent.DestFlags.Controller == UnitFlags.UnitController.Player &&
                 EntitytoOwnerMap.TryGetValue(combatEvent.DestGuid, out owner);
         }
 
@@ -78,7 +78,7 @@ namespace PandarosWoWLogParser
             switch (combatEvent.EventName)
             {
                 case LogEvents.SPELL_SUMMON:
-                    if (combatEvent.SourceFlags.GetFlagType == UnitFlags.FlagType.Player)
+                    if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Player)
                     {
                         if (!OwnerToEntityMap.TryGetValue(combatEvent.SourceName, out var list))
                         {

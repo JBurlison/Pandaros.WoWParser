@@ -15,13 +15,14 @@ namespace PandarosWoWLogParser.Calculators
         {
             ApplicableEvents = new List<string>()
             {
-                LogEvents.SPELL_CAST_SUCCESS
+                LogEvents.SPELL_CAST_SUCCESS,
+                LogEvents.SPELL_SUMMON
             };
         }
 
         public override void CalculateEvent(ICombatEvent combatEvent)
         {
-            if (combatEvent.SourceFlags.GetFlagType != UnitFlags.FlagType.Player)
+            if (combatEvent.SourceFlags.FlagType != UnitFlags.UnitFlagType.Player)
                 return;
             var spell = (ISpell)combatEvent;
 

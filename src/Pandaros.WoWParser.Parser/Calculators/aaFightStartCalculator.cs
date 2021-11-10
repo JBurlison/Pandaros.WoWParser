@@ -21,9 +21,9 @@ namespace PandarosWoWLogParser.Calculators
             if (!string.IsNullOrEmpty(initiator) || (!combatEvent.DestFlags.IsNPC && !combatEvent.SourceFlags.IsNPC))
                 return;
 
-            if (combatEvent.SourceFlags.GetFlagType == UnitFlags.FlagType.Player)
+            if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Player)
                 initiator = combatEvent.SourceName;
-            else if (combatEvent.DestFlags.GetFlagType == UnitFlags.FlagType.Player)
+            else if (combatEvent.DestFlags.FlagType == UnitFlags.UnitFlagType.Player)
                 initiator = combatEvent.DestName;
             else if(State.TryGetSourceOwnerName(combatEvent, out var owner))
                 initiator = owner;

@@ -37,12 +37,12 @@ namespace PandarosWoWLogParser.FightMonitor
                 string npcName = string.Empty;
                 string npcId = string.Empty;
 
-                if (evnt.SourceFlags.GetController == UnitFlags.Controller.Npc)
+                if (evnt.SourceFlags.Controller == UnitFlags.UnitController.Npc)
                 {
                     npcName = evnt.SourceName;
                     npcId = evnt.SourceGuid;
                 }
-                else if (evnt.DestFlags.GetController == UnitFlags.Controller.Npc)
+                else if (evnt.DestFlags.Controller == UnitFlags.UnitController.Npc)
                 {
                     npcName = evnt.DestName;
                     npcId = evnt.DestGuid;

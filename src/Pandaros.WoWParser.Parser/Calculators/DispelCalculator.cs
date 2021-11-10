@@ -22,7 +22,7 @@ namespace PandarosWoWLogParser.Calculators
 
         public override void CalculateEvent(ICombatEvent combatEvent)
         {
-            if (combatEvent.SourceFlags.GetFlagType != UnitFlags.FlagType.Player && combatEvent.SourceFlags.GetController != UnitFlags.Controller.Player)
+            if (combatEvent.SourceFlags.FlagType != UnitFlags.UnitFlagType.Player && combatEvent.SourceFlags.Controller != UnitFlags.UnitController.Player)
                 return;
             var spell = (SpellDispel)combatEvent;
 

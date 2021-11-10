@@ -6,7 +6,7 @@ namespace PandarosWoWLogParser
 {
     public class UnitFlags
     {
-        public enum FlagType
+        public enum UnitFlagType
         {
             Mask = 0x0000FC00,
             Object = 0x00004000,
@@ -15,20 +15,20 @@ namespace PandarosWoWLogParser
             Npc = 0x00000800,
             Player = 0x00000400
         }
-        public enum Controller
+        public enum UnitController
         {
             Mask = 0x00000300,
             Npc = 0x00000200,
             Player = 0x00000100
         }
-        public enum Reaction
+        public enum UnitReaction
         {
             Mask = 0x000000F0,
             Hostile = 0x00000040,
             Neutral = 0x00000020,
             Friendly = 0x00000010
         }
-        public enum ControllerAffiliation
+        public enum UnitControllerAffiliation
         {
             Mask = 0x0000000F,
             Outsider = 0x00000008,
@@ -59,24 +59,24 @@ namespace PandarosWoWLogParser
         public UnitFlags(int value)
         {
             Value = value;
-            GetController = (Controller)(Value & (int)Controller.Mask);
-            GetFlagType = (FlagType)(Value & (int)FlagType.Mask);
-            GetReaction = (Reaction)(Value & (int)Reaction.Mask);
-            GetControllerAffiliation = (ControllerAffiliation)(Value & (int)ControllerAffiliation.Mask);
-            GetSpecial = (Special)(Value & (int)Special.Mask);
+            Controller = (UnitController)(Value & (int)UnitController.Mask);
+            FlagType = (UnitFlagType)(Value & (int)UnitFlagType.Mask);
+            Reaction = (UnitReaction)(Value & (int)UnitReaction.Mask);
+            ControllerAffiliation = (UnitControllerAffiliation)(Value & (int)UnitControllerAffiliation.Mask);
+            SpecialFlag = (Special)(Value & (int)Special.Mask);
         }
 
-        public Controller GetController { get; set; }
-        public FlagType GetFlagType { get; set; }
-        public Reaction GetReaction { get; set; }
-        public ControllerAffiliation GetControllerAffiliation { get; set; }
-        public Special GetSpecial { get; set; }
+        public UnitController Controller { get; set; }
+        public UnitFlagType FlagType { get; set; }
+        public UnitReaction Reaction { get; set; }
+        public UnitControllerAffiliation ControllerAffiliation { get; set; }
+        public Special SpecialFlag { get; set; }
 
         public bool IsNPC
         {
             get
             {
-                return GetController == UnitFlags.Controller.Npc && GetFlagType == UnitFlags.FlagType.Npc;
+                return Controller == UnitFlags.UnitController.Npc && FlagType == UnitFlags.UnitFlagType.Npc;
             }
         }
 
@@ -84,7 +84,15 @@ namespace PandarosWoWLogParser
         {
             get
             {
-                return GetController == UnitFlags.Controller.Player && GetFlagType == UnitFlags.FlagType.Player;
+                return Controller == UnitFlags.UnitController.Player && FlagType == UnitFlags.UnitFlagType.Player;
+            }
+        }
+
+        public bool IsPlayerPet
+        {
+            get
+            {
+                return Controller == UnitFlags.UnitController.Player && (FlagType == UnitFlags.UnitFlagType.Pet || FlagType == UnitFlagType.Guardian);
             }
         }
     }

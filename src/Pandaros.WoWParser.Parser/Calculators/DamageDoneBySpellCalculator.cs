@@ -27,7 +27,7 @@ namespace PandarosWoWLogParser.Calculators
         {
             var damage = (IDamage)combatEvent;
 
-            if (combatEvent.SourceFlags.GetFlagType == UnitFlags.FlagType.Player)
+            if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Player)
                 AddDamage(combatEvent.SourceName, combatEvent, damage);
             else if (State.TryGetSourceOwnerName(combatEvent, out var owner))
             {

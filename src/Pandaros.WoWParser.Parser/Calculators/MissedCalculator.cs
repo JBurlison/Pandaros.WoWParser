@@ -29,7 +29,7 @@ namespace PandarosWoWLogParser.Calculators
 
         public override void CalculateEvent(ICombatEvent combatEvent)
         {
-            if (combatEvent.DestFlags.GetFlagType == UnitFlags.FlagType.Npc)
+            if (combatEvent.DestFlags.FlagType == UnitFlags.UnitFlagType.Npc)
             {
                 _attacks.AddValue(combatEvent.SourceName, 1);
 

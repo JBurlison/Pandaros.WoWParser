@@ -9,6 +9,7 @@ namespace PandarosWoWLogParser.Calculators
     public class ShieldCalculator : BaseCalculator
     {
         internal Dictionary<string, Dictionary<string, long>> _shieldGivenDoneByPlayersTotal = new Dictionary<string, Dictionary<string, long>>();
+        internal Dictionary<string, Dictionary<string, Dictionary<string, long>>> _playerSHieldedTotal = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
 
         private List<string> _shieldNames = new List<string>()
         {
@@ -42,8 +43,8 @@ namespace PandarosWoWLogParser.Calculators
         {
             var damage = (IDamage)combatEvent;
 
-            if (combatEvent.SourceFlags.GetFlagType == UnitFlags.FlagType.Npc && 
-                combatEvent.DestFlags.GetFlagType == UnitFlags.FlagType.Player &&
+            if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Npc && 
+                combatEvent.DestFlags.FlagType == UnitFlags.UnitFlagType.Player &&
                 damage.Absorbed > 0 && 
                 State.PlayerBuffs.TryGetValue(combatEvent.DestName, out var buffs))
             {
@@ -59,9 +60,13 @@ namespace PandarosWoWLogParser.Calculators
                 if (sheilds.Count != 0)
                 {
                     float dmg = damage.Absorbed / sheilds.Count;
+                    var resolved = Convert.ToInt32(Math.Round(dmg));
 
                     foreach (var s in sheilds)
-                        _shieldGivenDoneByPlayersTotal.AddValue(s.Value, s.Key, Convert.ToInt32(Math.Round(dmg)));
+                    {
+                        _shieldGivenDoneByPlayersTotal.AddValue(s.Value, s.Key, resolved);
+                        _playerSHieldedTotal.AddValue(s.Value, combatEvent.DestName, s.Key, resolved);
+                    }
                 }
             }
         }
@@ -69,6 +74,7 @@ namespace PandarosWoWLogParser.Calculators
         public override void FinalizeFight()
         {
             _statsReporting.Report(_shieldGivenDoneByPlayersTotal, "Damage Prevented with Shields (absorb) by caster", Fight, State);
+            _statsReporting.Report(_playerSHieldedTotal, "Sheilds cast on players", Fight, State);
         }
 
         public override void StartFight()

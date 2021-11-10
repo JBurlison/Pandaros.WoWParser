@@ -27,7 +27,7 @@ namespace PandarosWoWLogParser.Calculators
         {
             var damage = (IDamage)combatEvent;
 
-            if (combatEvent.SourceFlags.GetFlagType == UnitFlags.FlagType.Npc && combatEvent.DestFlags.GetFlagType == UnitFlags.FlagType.Player)
+            if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Npc && combatEvent.DestFlags.FlagType == UnitFlags.UnitFlagType.Player)
             {
 
                 if (combatEvent.EventName == LogEvents.SPELL_DAMAGE ||

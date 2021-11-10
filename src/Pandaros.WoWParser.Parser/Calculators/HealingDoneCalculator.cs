@@ -21,6 +21,8 @@ namespace PandarosWoWLogParser.Calculators
         Dictionary<string, long> _periodicOverheal = new Dictionary<string, long>();
         Dictionary<string, Dictionary<string, long>> _playerOwnedHealing = new Dictionary<string, Dictionary<string, long>>();
         Dictionary<string, Dictionary<string, long>> _playerOwnedOverheaing = new Dictionary<string, Dictionary<string, long>>();
+        Dictionary<string, Dictionary<string, Dictionary<string, long>>> _playerHealed = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
+        Dictionary<string, Dictionary<string, Dictionary<string, long>>> _playerOverHealed = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
 
         public HealingDoneCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
@@ -33,42 +35,49 @@ namespace PandarosWoWLogParser.Calculators
 
         public override void CalculateEvent(ICombatEvent combatEvent)
         {
-            var damage = (ISpellHeal)combatEvent;
+            var healingEvent = (ISpellHeal)combatEvent;
+            var spell = (ISpell)combatEvent;
 
-            if (combatEvent.SourceFlags.GetFlagType == UnitFlags.FlagType.Player)
+            if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Player)
             {
-                _healingDoneByPlayersTotal.AddValue(combatEvent.SourceName, damage.HealAmount);
-                _overHealingDoneByPlayersTotal.AddValue(combatEvent.SourceName, damage.Overhealing);
+                _healingDoneByPlayersTotal.AddValue(combatEvent.SourceName, healingEvent.HealAmount);
+                _overHealingDoneByPlayersTotal.AddValue(combatEvent.SourceName, healingEvent.Overhealing);
+
+                if (combatEvent.DestFlags.IsPlayer)
+                {
+                    _playerHealed.AddValue(combatEvent.SourceName, combatEvent.DestName, spell.SpellName, healingEvent.HealAmount);
+                    _playerOverHealed.AddValue(combatEvent.SourceName, combatEvent.DestName, spell.SpellName, healingEvent.Overhealing);
+                }
 
                 if (combatEvent.EventName == LogEvents.SPELL_HEAL)
                 {
                     _castCount.AddValue(combatEvent.SourceName, 1);
 
-                    if (damage.Critical)
+                    if (healingEvent.Critical)
                     {
                         _critCount.AddValue(combatEvent.SourceName, 1);
-                        _critHeal.AddValue(combatEvent.SourceName, damage.HealAmount);
-                        _critOverheal.AddValue(combatEvent.SourceName, damage.Overhealing);
+                        _critHeal.AddValue(combatEvent.SourceName, healingEvent.HealAmount);
+                        _critOverheal.AddValue(combatEvent.SourceName, healingEvent.Overhealing);
                     }
                     else
                     {
-                        _noncritHeal.AddValue(combatEvent.SourceName, damage.HealAmount);
-                        _noncritOverheal.AddValue(combatEvent.SourceName, damage.Overhealing);
+                        _noncritHeal.AddValue(combatEvent.SourceName, healingEvent.HealAmount);
+                        _noncritOverheal.AddValue(combatEvent.SourceName, healingEvent.Overhealing);
                     }
                 }
                 else
                 {
-                    _periodicHeal.AddValue(combatEvent.SourceName, damage.HealAmount);
-                    _periodicOverheal.AddValue(combatEvent.SourceName, damage.Overhealing);
+                    _periodicHeal.AddValue(combatEvent.SourceName, healingEvent.HealAmount);
+                    _periodicOverheal.AddValue(combatEvent.SourceName, healingEvent.Overhealing);
                 }
             }
 
             if (State.TryGetSourceOwnerName(combatEvent, out var owner))
             {
-                _healingDoneByPlayersTotal.AddValue(owner, damage.HealAmount);
-                _overHealingDoneByPlayersTotal.AddValue(owner, damage.Overhealing);
-                _playerOwnedHealing.AddValue(owner, combatEvent.SourceName, damage.HealAmount);
-                _playerOwnedOverheaing.AddValue(owner, combatEvent.SourceName, damage.Overhealing);
+                _healingDoneByPlayersTotal.AddValue(owner, healingEvent.HealAmount);
+                _overHealingDoneByPlayersTotal.AddValue(owner, healingEvent.Overhealing);
+                _playerOwnedHealing.AddValue(owner, combatEvent.SourceName, healingEvent.HealAmount);
+                _playerOwnedOverheaing.AddValue(owner, combatEvent.SourceName, healingEvent.Overhealing);
             }
 
       
@@ -79,6 +88,8 @@ namespace PandarosWoWLogParser.Calculators
             Dictionary<string, long> totalLife = new Dictionary<string, long>();
             Dictionary<string, long> effectiveHeal = new Dictionary<string, long>();
             Dictionary<string, long> critChance = new Dictionary<string, long>();
+            Dictionary<string, Dictionary<string, Dictionary<string, long>>> totalHealedPerson = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
+            Dictionary<string, Dictionary<string, Dictionary<string, long>>> effectiveHealingPerperson = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
 
             var shieldCalculator = (ShieldCalculator)State.CalculatorFactory.CalculatorFlatList.First(c => c.GetType() == typeof(ShieldCalculator));
 
@@ -105,6 +116,31 @@ namespace PandarosWoWLogParser.Calculators
                     critChance[crit.Key] = (crit.Value / castCount);
                 }
 
+            foreach (var healed in _playerHealed)
+                foreach (var person in healed.Value)
+                    foreach (var spell in person.Value)
+                        totalHealedPerson.AddValue(healed.Key, person.Key, spell.Key, spell.Value);
+
+            foreach (var healed in _playerOverHealed)
+                foreach (var person in healed.Value)
+                    foreach (var spell in person.Value)
+                        totalHealedPerson.AddValue(healed.Key, person.Key, spell.Key, spell.Value);
+
+            foreach (var healed in shieldCalculator._playerSHieldedTotal)
+                foreach (var person in healed.Value)
+                    foreach (var spell in person.Value)
+                        totalHealedPerson.AddValue(healed.Key, person.Key, spell.Key, spell.Value);
+
+            foreach (var healed in _playerHealed)
+                foreach (var person in healed.Value)
+                    foreach (var spell in person.Value)
+                        effectiveHealingPerperson.AddValue(healed.Key, person.Key, spell.Key, spell.Value);
+
+            foreach (var healed in shieldCalculator._playerSHieldedTotal)
+                foreach (var person in healed.Value)
+                    foreach (var spell in person.Value)
+                        effectiveHealingPerperson.AddValue(healed.Key, person.Key, spell.Key, spell.Value);
+
             _statsReporting.Report(_healingDoneByPlayersTotal, "Life Healed Rankings", Fight, State);
             _statsReporting.Report(effectiveHeal, "Effective Healing Rankings (healed + Shield Absorbs)", Fight, State);
             _statsReporting.Report(_overHealingDoneByPlayersTotal, "Overheal Rankings", Fight, State);
@@ -114,6 +150,10 @@ namespace PandarosWoWLogParser.Calculators
             _statsReporting.Report(_periodicHeal, "Periodic Healed Rankings", Fight, State);
             _statsReporting.Report(_periodicHeal, "Periodic Overheal Rankings", Fight, State);
             _statsReporting.Report(critChance, "Healing Crit Chance", Fight, State);
+            _statsReporting.Report(_playerHealed, "Most Healed on Players Rankings", Fight, State);
+            _statsReporting.Report(_playerOverHealed, "Most Overhealed on Players Rankings", Fight, State);
+            _statsReporting.Report(effectiveHealingPerperson, "Most Effective Healing on Players Rankings (Life Healed + Shields)", Fight, State);
+            _statsReporting.Report(totalHealedPerson, "Most Healing Output on Players Rankings (Life Healed + Overheal + Shields)", Fight, State);
 
             _statsReporting.ReportPerSecondNumbers(_healingDoneByPlayersTotal, "Life Healed HPS Rankings", Fight, State);
 

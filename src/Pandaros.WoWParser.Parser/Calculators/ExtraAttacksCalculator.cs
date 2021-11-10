@@ -21,7 +21,7 @@ namespace PandarosWoWLogParser.Calculators
 
         public override void CalculateEvent(ICombatEvent combatEvent)
         {
-            if (combatEvent.SourceFlags.GetFlagType != UnitFlags.FlagType.Player)
+            if (combatEvent.SourceFlags.FlagType != UnitFlags.UnitFlagType.Player)
                 return;
 
             var spell = (SpellExtraAttacks)combatEvent;
