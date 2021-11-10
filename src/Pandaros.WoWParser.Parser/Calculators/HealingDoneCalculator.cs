@@ -113,7 +113,7 @@ namespace PandarosWoWLogParser.Calculators
             foreach (var crit in _critCount)
                 if (_castCount.TryGetValue(crit.Key, out var castCount))
                 {
-                    critChance[crit.Key] = (crit.Value / castCount);
+                    critChance[crit.Key] = Convert.ToInt32(Math.Round(((double)crit.Value / (double)castCount) * 100));
                 }
 
             foreach (var healed in _playerHealed)
