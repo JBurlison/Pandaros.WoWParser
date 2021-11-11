@@ -13,7 +13,11 @@ namespace Pandaros.WoWParser.API.DomainModels
         public string ServerID { get; set; }
         public List<string> Owners { get; set; } = new List<string>();
         public List<string> Ranks { get; set; } = new List<string>();
+
+        // key rank name, value list of player ids
         public Dictionary<string, List<string>> PlayersByRank { get; set; } = new Dictionary<string, List<string>>();
-        public Dictionary<string, string> RaidIds { get; set; } = new Dictionary<string, string>();
+
+        // key: raid name, value list of raid ids
+        public Dictionary<string, List<string>> RaidIds { get; set; } = new Dictionary<string, List<string>>();
     }
 }
