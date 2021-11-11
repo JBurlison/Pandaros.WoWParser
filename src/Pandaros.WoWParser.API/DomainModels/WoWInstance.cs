@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 
 namespace Pandaros.WoWParser.API.DomainModels
 {
-    public class WoWRaid
+    public class WoWInstance
     {
-        public string RaidId { get; set; }
-        public string GuildId { get; set; }
-        public string RaidName { get; set; }
+        public string InstanceId { get; set; }
+        public string InstanceName { get; set; }
+        public DateTime StartTime { get; set; }
+        public DateTime EndTime { get; set; }
         public List<string> CharacterIds { get; set; } = new List<string>();
         public List<string> GuildIds { get; set; } = new List<string>();
+        public List<string> FightIds { get; set; } = new List<string>();
     }
 }

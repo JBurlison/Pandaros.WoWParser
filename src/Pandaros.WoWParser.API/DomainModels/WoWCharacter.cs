@@ -11,8 +11,8 @@ namespace Pandaros.WoWParser.API.DomainModels
         public string PlayerID { get; set; }
         public string GuildId { get; set; }
 
-        // key: raid name, value list of raid ids
-        public Dictionary<string, List<string>> RaidIds { get; set; } = new Dictionary<string, List<string>>();
+        // key: Instance name, Date of instance, with the instance id.
+        public Dictionary<string, Dictionary<DateTime, string>> InstanceIds { get; set; } = new Dictionary<string, Dictionary<DateTime, string>>();
 
     }
 }

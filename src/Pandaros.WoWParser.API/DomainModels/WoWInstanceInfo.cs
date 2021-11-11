@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 namespace Pandaros.WoWParser.API.DomainModels
 {
     /// <summary>
-    ///     Metadata about the raid, sucha as name and boss fights
+    ///     Metadata about the Instance, sucha as name and boss fights
     /// </summary>
-    public class WoWRaidInfo
+    public class WoWInstanceInfo
     {
         public string Name { get; set; }
     }
