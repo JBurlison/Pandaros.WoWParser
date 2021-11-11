@@ -12,7 +12,7 @@ namespace Pandaros.WoWParser.API.DomainModels
         public string GuildId { get; set; }
 
         // key: Instance name, Date of instance, with the instance id.
-        public Dictionary<string, Dictionary<DateTime, string>> InstanceIds { get; set; } = new Dictionary<string, Dictionary<DateTime, string>>();
+        public Dictionary<string, Dictionary<string, string>> InstanceIds { get; set; } = new Dictionary<string, Dictionary<string, string>>();
 
     }
 }

@@ -43,8 +43,8 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
             {
                 InstanceId = "92183C73-0112-41AC-9441-928EDDFE1E18",
                 CharacterIds = new List<string>() { "E8C291E6-BCE6-4033-9637-2E6E84045826" },
-                StartTime = DateTime.Now - TimeSpan.FromHours(2),
-                EndTime = DateTime.Now,
+                StartTime = DateTime.UtcNow - TimeSpan.FromHours(2),
+                EndTime = DateTime.UtcNow,
                 InstanceName = "Serpentshrine Cavern",
                 FightIds = new List<string>() { "CF2EC121-83D2-4DBA-92CD-F42E7AA4B81B" }
             };

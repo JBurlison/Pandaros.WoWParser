@@ -44,9 +44,9 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
                 PlayerID = "Pandaros",
                 ID = "E8C291E6-BCE6-4033-9637-2E6E84045826",
                 GuildId = "",
-                InstanceIds = new Dictionary<string, Dictionary<DateTime, string>>()
+                InstanceIds = new Dictionary<string, Dictionary<string, string>>()
                 {
-                    { "Serpentshrine Cavern", new Dictionary<DateTime, string>() { { DateTime.Now, "92183C73-0112-41AC-9441-928EDDFE1E18" } } }
+                    { "Serpentshrine Cavern", new Dictionary<string, string>() { { DateTime.UtcNow.ToString("O"), "92183C73-0112-41AC-9441-928EDDFE1E18" } } }
                 }
             };
         }

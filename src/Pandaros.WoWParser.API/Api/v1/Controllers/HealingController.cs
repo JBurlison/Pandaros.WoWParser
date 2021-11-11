@@ -107,7 +107,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
                 return new HealingStats()
                 {
                     InstanceId = "92183C73-0112-41AC-9441-928EDDFE1E18",
-                    CharacterId = "E",
+                    CharacterId = "",
                     FightId = "CF2EC121-83D2-4DBA-92CD-F42E7AA4B81B",
                     CritChance = 27.3f,
                     CritCount = 2601,

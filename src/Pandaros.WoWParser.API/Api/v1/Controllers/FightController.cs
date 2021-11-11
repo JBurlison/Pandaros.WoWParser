@@ -43,8 +43,8 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
             {
                 FightId = "CF2EC121-83D2-4DBA-92CD-F42E7AA4B81B",
                 CharacterIds = new List<string>() { "E8C291E6-BCE6-4033-9637-2E6E84045826" },
-                StartTime = DateTime.Now - TimeSpan.FromMinutes(7),
-                EndTime = DateTime.Now,
+                StartTime = DateTime.UtcNow - TimeSpan.FromMinutes(7),
+                EndTime = DateTime.UtcNow,
                 InstanceId = "92183C73-0112-41AC-9441-928EDDFE1E18",
                 StatIndexes = new List<string>() { "Healing" }
             };
