@@ -1,11 +1,11 @@
-﻿using PandarosWoWLogParser.Calculators;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.Calculators;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PandarosWoWLogParser.FightMonitor
+namespace Pandaros.WoWLogParser.Parser.FightMonitor
 {
     public class FightMonitorFactory : IFightMonitorFactory
     {

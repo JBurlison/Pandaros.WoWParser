@@ -1,12 +1,12 @@
-﻿using PandarosWoWLogParser.Calculators;
-using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
-using PandarosWoWLogParser.Parsers;
+﻿using Pandaros.WoWLogParser.Parser.Calculators;
+using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
+using Pandaros.WoWLogParser.Parser.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PandarosWoWLogParser
+namespace Pandaros.WoWLogParser.Parser
 {
     public class CombatState : CombatStateBase
     {
@@ -25,7 +25,7 @@ namespace PandarosWoWLogParser
                     _prevFightState = true;
                 else if (_prevFightState)
                 {
-                    CalculatorFactory.StartFight();
+                    CalculatorFactory.StartFight(combatEvent);
 
                     foreach (var fightEvent in CurrentFight.MonitoredFightEvents)
                     {
@@ -33,7 +33,7 @@ namespace PandarosWoWLogParser
                         CalculatorFactory.CalculateEvent(fightEvent);
                     }
 
-                    CalculatorFactory.FinalizeFight();
+                    CalculatorFactory.FinalizeFight(combatEvent);
 
                     _prevFightState = false;
                     CalculatorFactory = null;

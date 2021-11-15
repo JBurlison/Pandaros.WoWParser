@@ -1,7 +1,7 @@
-﻿using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.Models;
 using System;
 
-namespace PandarosWoWLogParser.Parsers
+namespace Pandaros.WoWLogParser.Parser.Parsers
 {
     public class SpellAuraParser : SpellParser, ICombatParser<SpellAura>
     {

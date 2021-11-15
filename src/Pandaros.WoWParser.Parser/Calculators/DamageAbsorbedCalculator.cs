@@ -1,11 +1,11 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class DamageAbsorbedCalculator : BaseCalculator
     {
@@ -33,12 +33,12 @@ namespace PandarosWoWLogParser.Calculators
                 _damageAbsorbedByPlayersTotal.AddValue(combatEvent.DestName, damage.Absorbed);
         }
 
-        public override void FinalizeFight()
+        public override void FinalizeFight(ICombatEvent combatEvent)
         {
             _statsReporting.Report(_damageAbsorbedByPlayersTotal, "Absorbtion Rankings", Fight, State);
         }
 
-        public override void StartFight()
+        public override void StartFight(ICombatEvent combatEvent)
         {
             
         }

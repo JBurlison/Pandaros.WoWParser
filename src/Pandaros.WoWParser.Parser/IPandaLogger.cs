@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PandarosWoWLogParser
+namespace Pandaros.WoWLogParser.Parser
 {
     public interface IPandaLogger : IStatsReporter
     {

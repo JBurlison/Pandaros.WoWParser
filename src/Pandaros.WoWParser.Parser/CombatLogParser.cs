@@ -2,13 +2,13 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using PandarosWoWLogParser.Models;
+using Pandaros.WoWLogParser.Parser.Models;
 using System.Threading.Tasks;
-using PandarosWoWLogParser.Parsers;
-using PandarosWoWLogParser.Calculators;
-using PandarosWoWLogParser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Parsers;
+using Pandaros.WoWLogParser.Parser.Calculators;
+using Pandaros.WoWLogParser.Parser.FightMonitor;
 
-namespace PandarosWoWLogParser
+namespace Pandaros.WoWLogParser.Parser
 {
     public class CombatLogParser
     {

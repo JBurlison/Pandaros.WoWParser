@@ -1,13 +1,13 @@
 ﻿using Autofac;
-using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class CalculatorFactory : ICalculatorFactory
     {
@@ -76,20 +76,20 @@ namespace PandarosWoWLogParser.Calculators
            }
 
 
-        public void StartFight()
+        public void StartFight(ICombatEvent combatEvent)
         {
             _eventCount.Clear();
             _logger.Log("---------------------------------------------");
             _logger.Log($"{Fight.FightStart.ToLocalTime()} Fight Start: {Fight.BossName}");
             _logger.Log("---------------------------------------------");
             foreach (var calc in CalculatorFlatList)
-                calc.StartFight();
+                calc.StartFight(combatEvent);
         }
 
-        public void FinalizeFight()
+        public void FinalizeFight(ICombatEvent combatEvent)
         {
             foreach (var calc in CalculatorFlatList)
-                calc.FinalizeFight();
+                calc.FinalizeFight(combatEvent);
 
             _logger.Log("---------------------------------------------");
             _logger.Log($"{Fight.FightEnd.ToLocalTime()} Fight End: {Fight.BossName} ({Fight.FightEnd.Subtract(Fight.FightStart)})");

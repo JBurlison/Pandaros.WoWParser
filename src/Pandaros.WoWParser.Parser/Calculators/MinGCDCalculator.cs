@@ -1,11 +1,11 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class MinGCDCalculator : BaseCalculator
     {
@@ -41,7 +41,7 @@ namespace PandarosWoWLogParser.Calculators
             _spellsCast[combatEvent.SourceName] = combatEvent.Timestamp;
         }
 
-        public override void FinalizeFight()
+        public override void FinalizeFight(ICombatEvent combatEvent)
         {
             Dictionary<string, long> report = new Dictionary<string, long>();
 
@@ -51,7 +51,7 @@ namespace PandarosWoWLogParser.Calculators
             _statsReporting.Report(report, "Max Time Between Casts in milliseconds", Fight, State);
         }
 
-        public override void StartFight()
+        public override void StartFight(ICombatEvent combatEvent)
         {
             
         }

@@ -15,7 +15,7 @@ using System.Windows.Shapes;
 using System.IO;
 using Microsoft.Win32;
 using Autofac;
-using PandarosWoWLogParser;
+using Pandaros.WoWLogParser.Parser;
 using System.Diagnostics;
 
 namespace Pandaros.WoWLogParser.UI

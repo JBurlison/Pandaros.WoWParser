@@ -1,12 +1,12 @@
-﻿using PandarosWoWLogParser.Calculators;
-using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
-using PandarosWoWLogParser.Parsers;
+﻿using Pandaros.WoWLogParser.Parser.Calculators;
+using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
+using Pandaros.WoWLogParser.Parser.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PandarosWoWLogParser
+namespace Pandaros.WoWLogParser.Parser
 {
     public class AllCombatsState : CombatStateBase
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PandarosWoWLogParser
+namespace Pandaros.WoWLogParser.Parser
 {
     /// <summary>
     ///     https://wowpedia.fandom.com/wiki/COMBAT_LOG_EVENT#Parameter_Values

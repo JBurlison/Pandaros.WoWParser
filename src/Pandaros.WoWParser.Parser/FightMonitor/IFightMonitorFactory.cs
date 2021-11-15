@@ -1,9 +1,9 @@
-﻿using PandarosWoWLogParser.Calculators;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.Calculators;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 
-namespace PandarosWoWLogParser.FightMonitor
+namespace Pandaros.WoWLogParser.Parser.FightMonitor
 {
     public interface IFightMonitorFactory
     {

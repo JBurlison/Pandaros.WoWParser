@@ -1,11 +1,11 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class DispelCalculator : BaseCalculator
     {
@@ -32,12 +32,12 @@ namespace PandarosWoWLogParser.Calculators
                 _Dispells.AddValue(combatEvent.SourceName, spell.SpellName, spell.ExtraSpellName, 1);
         }
 
-        public override void FinalizeFight()
+        public override void FinalizeFight(ICombatEvent combatEvent)
         {
             _statsReporting.Report(_Dispells, "Dispells", Fight, State);
         }
 
-        public override void StartFight()
+        public override void StartFight(ICombatEvent combatEvent)
         {
             
         }

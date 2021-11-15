@@ -1,5 +1,5 @@
 ﻿
-namespace PandarosWoWLogParser.Models
+namespace Pandaros.WoWLogParser.Parser.Models
 {
     public interface ISpellAura
     {

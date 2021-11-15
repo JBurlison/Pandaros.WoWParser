@@ -1,11 +1,11 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class AvoidanceCalculator : BaseCalculator
     {
@@ -53,7 +53,7 @@ namespace PandarosWoWLogParser.Calculators
             }
         }
 
-        public override void FinalizeFight()
+        public override void FinalizeFight(ICombatEvent combatEvent)
         {
             List<List<string>> table = new List<List<string>>();
             var enums = Enum.GetValues(typeof(MissType)).Cast<MissType>().ToList();
@@ -111,7 +111,7 @@ namespace PandarosWoWLogParser.Calculators
             _statsReporting.Report(_attackAvoidedByEntityFromEntity, "Avoidance by Monster by Miss Type (% of all avoidance during fight)", Fight, State);
         }
 
-        public override void StartFight()
+        public override void StartFight(ICombatEvent combatEvent)
         {
             
         }

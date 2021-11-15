@@ -1,11 +1,11 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class HealingDoneBySpellCalculator : BaseCalculator
     {
@@ -37,14 +37,14 @@ namespace PandarosWoWLogParser.Calculators
             }
         }
 
-        public override void FinalizeFight()
+        public override void FinalizeFight(ICombatEvent combatEvent)
         {
             _statsReporting.Report(_healingDoneBySpellTotal, "Healing By Spell Raid wide", Fight, State);
             _statsReporting.ReportPerSecondNumbers(_healingDoneBySpellTotal, "HPS By Spell Raid wide", Fight, State);
             _statsReporting.Report(_healingSpellByPlayer, "Healing Spell by Player", Fight, State);
         }
 
-        public override void StartFight()
+        public override void StartFight(ICombatEvent combatEvent)
         {
 
         }

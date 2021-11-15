@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public interface ICalculatorFactory
     {
@@ -12,7 +12,7 @@ namespace PandarosWoWLogParser.Calculators
         public ICombatState State { get; set; }
         public MonitoredFight Fight { get; set; }
         public void CalculateEvent(ICombatEvent combatEvent);
-        public void StartFight();
-        public void FinalizeFight();
+        public void StartFight(ICombatEvent combatEvent);
+        public void FinalizeFight(ICombatEvent combatEvent);
     }
 }

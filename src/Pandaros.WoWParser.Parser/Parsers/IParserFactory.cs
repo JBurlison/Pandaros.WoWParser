@@ -1,8 +1,8 @@
-﻿using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 
-namespace PandarosWoWLogParser.Parsers
+namespace Pandaros.WoWLogParser.Parser.Parsers
 {
     public interface IParserFactory
     {

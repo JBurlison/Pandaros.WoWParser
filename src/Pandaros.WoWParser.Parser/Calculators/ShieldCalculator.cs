@@ -1,10 +1,10 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class ShieldCalculator : BaseCalculator
     {
@@ -71,13 +71,13 @@ namespace PandarosWoWLogParser.Calculators
             }
         }
 
-        public override void FinalizeFight()
+        public override void FinalizeFight(ICombatEvent combatEvent)
         {
             _statsReporting.Report(_shieldGivenDoneByPlayersTotal, "Damage Prevented with Shields (absorb) by caster", Fight, State);
             _statsReporting.Report(_playerSHieldedTotal, "Sheilds cast on players", Fight, State);
         }
 
-        public override void StartFight()
+        public override void StartFight(ICombatEvent combatEvent)
         {
 
         }

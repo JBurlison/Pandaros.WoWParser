@@ -1,11 +1,11 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class HealingDoneCalculator : BaseCalculator
     {
@@ -83,7 +83,7 @@ namespace PandarosWoWLogParser.Calculators
       
         }
 
-        public override void FinalizeFight()
+        public override void FinalizeFight(ICombatEvent combatEvent)
         {
             Dictionary<string, long> totalLife = new Dictionary<string, long>();
             Dictionary<string, long> effectiveHeal = new Dictionary<string, long>();
@@ -162,7 +162,7 @@ namespace PandarosWoWLogParser.Calculators
             _statsReporting.ReportPerSecondNumbers(effectiveHeal, "Effective HPS Rankings (Life Healed + Shields)", Fight, State);
         }
 
-        public override void StartFight()
+        public override void StartFight(ICombatEvent combatEvent)
         {
 
         }

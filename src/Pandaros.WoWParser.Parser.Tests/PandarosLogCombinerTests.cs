@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using PandarosWoWLogParser;
+using Pandaros.WoWLogParser.Parser;
 using System;
 using System.Collections.Generic;
 using System.Configuration;

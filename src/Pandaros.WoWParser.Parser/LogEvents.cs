@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace PandarosWoWLogParser
+namespace Pandaros.WoWLogParser.Parser
 {
     public class LogEvents
     {

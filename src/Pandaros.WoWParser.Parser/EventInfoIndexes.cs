@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace PandarosWoWLogParser.Indexes
+namespace Pandaros.WoWLogParser.Parser.Indexes
 {
     public class UnitKeys
     {

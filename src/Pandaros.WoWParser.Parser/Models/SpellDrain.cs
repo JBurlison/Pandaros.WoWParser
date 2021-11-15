@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace PandarosWoWLogParser.Models
+namespace Pandaros.WoWLogParser.Parser.Models
 {
     public class SpellDrain : SpellBase, ISpellDrain
     {

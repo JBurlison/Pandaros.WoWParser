@@ -1,19 +1,19 @@
-﻿using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using PandarosWoWLogParser.Parsers;
+using Pandaros.WoWLogParser.Parser.Parsers;
 using System.Collections.Generic;
-using PandarosWoWLogParser.Calculators;
-using PandarosWoWLogParser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Calculators;
+using Pandaros.WoWLogParser.Parser.FightMonitor;
 using System.Configuration;
 using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace PandarosWoWLogParser
+namespace Pandaros.WoWLogParser.Parser
 {
     public static class PandarosParser
     {

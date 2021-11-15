@@ -1,10 +1,10 @@
-﻿using PandarosWoWLogParser.FightMonitor;
-using PandarosWoWLogParser.Models;
+﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace PandarosWoWLogParser.Calculators
+namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public abstract class BaseCalculator : ICalculator
     {
@@ -28,12 +28,12 @@ namespace PandarosWoWLogParser.Calculators
             
         }
 
-        public virtual void FinalizeFight()
+        public virtual void FinalizeFight(ICombatEvent combatEvent)
         {
             
         }
 
-        public virtual void StartFight()
+        public virtual void StartFight(ICombatEvent combatEvent)
         {
             
         }
