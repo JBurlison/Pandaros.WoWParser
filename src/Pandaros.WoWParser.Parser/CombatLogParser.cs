@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Pandaros.WoWLogParser.Parser.Parsers;
 using Pandaros.WoWLogParser.Parser.Calculators;
 using Pandaros.WoWLogParser.Parser.FightMonitor;
+using MongoDB.Driver;
 
 namespace Pandaros.WoWLogParser.Parser
 {
@@ -15,15 +16,17 @@ namespace Pandaros.WoWLogParser.Parser
         IParserFactory _parserFactory;
         IFightMonitorFactory _fightMonitorFactory;
         IPandaLogger _logger;
-        IStatsReporter _reporter;
+        IStatsLogger _reporter;
+        IMongoClient _mongoClient;
         public event EventHandler<double> PctComplete;
 
-        public CombatLogParser(IParserFactory parserFactory, IFightMonitorFactory fightMonitorFactory, IPandaLogger logger, IStatsReporter reporter)
+        public CombatLogParser(IParserFactory parserFactory, IFightMonitorFactory fightMonitorFactory, IPandaLogger logger, IStatsLogger reporter, IMongoClient mongoClient)
         {
             _parserFactory = parserFactory;
             _fightMonitorFactory = fightMonitorFactory;
             _logger = logger;
             _reporter = reporter;
+            _mongoClient = mongoClient;
         }
 
         public long ParseToEnd(string filepath)
@@ -40,7 +43,7 @@ namespace Pandaros.WoWLogParser.Parser
 
             long count = 0;
             ICombatState state = new CombatState(_fightMonitorFactory, _logger);
-            ICombatState allFights = new AllCombatsState(_fightMonitorFactory, _logger, _reporter);
+            ICombatState allFights = new AllCombatsState(_fightMonitorFactory, _logger, _reporter, _mongoClient);
            
             using (FileStream fs = new FileStream(fileToParse.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {

@@ -11,7 +11,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
     {
         Dictionary<string, long> _playerDeaths = new Dictionary<string, long>();
 
-        public PlayerDiedCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public PlayerDiedCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = new List<string>()
             {

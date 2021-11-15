@@ -24,7 +24,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
         Dictionary<string, Dictionary<string, Dictionary<string, long>>> _playerHealed = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
         Dictionary<string, Dictionary<string, Dictionary<string, long>>> _playerOverHealed = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
 
-        public HealingDoneCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public HealingDoneCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = new List<string>()
             {

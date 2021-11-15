@@ -11,7 +11,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
     {
         string initiator;
 
-        public aaFightStartCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public aaFightStartCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = FightMonitorFactory.CombatEventsTriggerInFight;
         }

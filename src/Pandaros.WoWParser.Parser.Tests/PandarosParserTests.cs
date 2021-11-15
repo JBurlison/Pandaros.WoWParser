@@ -18,7 +18,7 @@ namespace Pandaros.WoWLogParser.Tests
         {
             var builder = new ContainerBuilder();
             var logger = new PandaLogger("C:/temp/");
-            builder.PandarosParserSetup(logger, logger);
+            builder.PandarosParserSetup(logger, logger, null);
 
             var Container = builder.Build();
 

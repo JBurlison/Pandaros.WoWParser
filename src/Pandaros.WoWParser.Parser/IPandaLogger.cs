@@ -2,7 +2,7 @@
 
 namespace Pandaros.WoWLogParser.Parser
 {
-    public interface IPandaLogger : IStatsReporter
+    public interface IPandaLogger : IStatsLogger
     {
         void Log(string message, params object[] args);
         void LogError(Exception e);

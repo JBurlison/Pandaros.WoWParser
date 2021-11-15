@@ -1,4 +1,5 @@
-﻿using Pandaros.WoWLogParser.Parser.Calculators;
+﻿using MongoDB.Driver;
+using Pandaros.WoWLogParser.Parser.Calculators;
 using Pandaros.WoWLogParser.Parser.Models;
 using System;
 using System.Collections.Generic;
@@ -22,12 +23,14 @@ namespace Pandaros.WoWLogParser.Parser.FightMonitor
         };
 
         IPandaLogger _logger;
-        IStatsReporter _reporter;
+        IStatsLogger _reporter;
+        IMongoClient _mongoClient;
 
-        public FightMonitorFactory(IPandaLogger logger, IStatsReporter reporter)
+        public FightMonitorFactory(IPandaLogger logger, IStatsLogger reporter, IMongoClient mongoClient)
         {
             _reporter = reporter;
             _logger = logger;
+            _mongoClient = mongoClient;
         }
 
         public bool IsMonitoredFight(ICombatEvent evnt, ICombatState state)
@@ -57,7 +60,7 @@ namespace Pandaros.WoWLogParser.Parser.FightMonitor
                         FightStart = evnt.Timestamp,
                         MonsterID = new Dictionary<string, bool>() { { npcId, false } }
                     };
-                    state.CalculatorFactory = new CalculatorFactory(_logger, _reporter, state, state.CurrentFight);
+                    state.CalculatorFactory = new CalculatorFactory(_logger, _reporter, state, state.CurrentFight, _mongoClient);
                 }
             }
 

@@ -9,7 +9,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
 {
     public class TimelineCalculator : BaseCalculator
     {
-        public TimelineCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public TimelineCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = new List<string>()
             {

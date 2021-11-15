@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using MongoDB.Driver;
 using Pandaros.WoWLogParser.Parser.FightMonitor;
 using Pandaros.WoWLogParser.Parser.Models;
 using System;
@@ -17,9 +18,9 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
         public MonitoredFight Fight { get; set; }
         Dictionary<string, int> _eventCount = new Dictionary<string, int>();
         IPandaLogger _logger;
-        IStatsReporter _reporter;
+        IStatsLogger _reporter;
 
-        public CalculatorFactory(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight)
+        public CalculatorFactory(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight, IMongoClient mongoClient)
         {
             var assem = Assembly.GetExecutingAssembly();
             _logger = logger;
@@ -28,8 +29,8 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
             Fight = fight;
             var typeArray = assem.GetTypes();
             var builder = new ContainerBuilder();
-            builder.SetupDataProviders(logger);
-            builder.RegisterInstance(reporter).As<IStatsReporter>().SingleInstance();
+            builder.SetupDataProviders(logger, mongoClient);
+            builder.RegisterInstance(reporter).As<IStatsLogger>().SingleInstance();
             builder.RegisterInstance(state).As<ICombatState>().SingleInstance();
             builder.RegisterInstance(fight).As<MonitoredFight>().SingleInstance();
 

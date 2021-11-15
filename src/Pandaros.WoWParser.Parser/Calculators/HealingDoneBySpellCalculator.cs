@@ -12,7 +12,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
         Dictionary<string, long> _healingDoneBySpellTotal = new Dictionary<string, long>();
         Dictionary<string, Dictionary<string, long>> _healingSpellByPlayer = new Dictionary<string, Dictionary<string, long>>();
 
-        public HealingDoneBySpellCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public HealingDoneBySpellCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = new List<string>()
                 {

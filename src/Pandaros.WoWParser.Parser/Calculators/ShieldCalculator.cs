@@ -27,7 +27,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
             "Power Word: Shield",
         };
 
-        public ShieldCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public ShieldCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = new List<string>()
             {

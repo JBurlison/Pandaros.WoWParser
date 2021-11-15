@@ -13,9 +13,9 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
         public MonitoredFight Fight { get; set; }
 
         internal IPandaLogger _logger;
-        internal IStatsReporter _statsReporting;
+        internal IStatsLogger _statsReporting;
 
-        public BaseCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight)
+        public BaseCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight)
         {
             _logger = logger;
             _statsReporting = reporter;

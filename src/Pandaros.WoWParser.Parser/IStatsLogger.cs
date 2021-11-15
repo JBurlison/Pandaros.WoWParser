@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Pandaros.WoWLogParser.Parser
 {
-    public interface IStatsReporter
+    public interface IStatsLogger
     {
         public void ReportPerSecondNumbers<T>(Dictionary<T, long> stats, string name, MonitoredFight fight, ICombatState state);
         public void Report<T>(Dictionary<T, long> stats, string name, MonitoredFight fight, ICombatState state);

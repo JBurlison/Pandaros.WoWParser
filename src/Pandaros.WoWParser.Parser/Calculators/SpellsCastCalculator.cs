@@ -11,7 +11,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
     {
         Dictionary<string, Dictionary<string, long>> _spellsCast = new Dictionary<string, Dictionary<string, long>>();
 
-        public SpellsCastCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public SpellsCastCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = new List<string>()
             {

@@ -12,15 +12,17 @@ using System.Configuration;
 using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
+using MongoDB.Driver;
 
 namespace Pandaros.WoWLogParser.Parser
 {
     public static class PandarosParser
     {
-        public static void PandarosParserSetup(this IServiceCollection services, IPandaLogger logger, IStatsReporter statsReporter)
+        public static void PandarosParserSetup(this IServiceCollection services, IPandaLogger logger, IStatsLogger statsReporter, IMongoClient mongoClient)
         {
             services.AddSingleton<IPandaLogger>(logger);
-            services.AddSingleton<IStatsReporter>(statsReporter);
+            services.AddSingleton<IStatsLogger>(statsReporter);
+            services.AddSingleton<IMongoClient>(mongoClient);
             services.AddSingleton<ICombatParser<SpellDamage>, SpellDamageParser>();
             services.AddSingleton<ICombatParser<SwingDamage>, SwingDamageParser>();
             services.AddSingleton<ICombatParser<SpellFailed>, SpellFailedParser>();
@@ -45,10 +47,11 @@ namespace Pandaros.WoWLogParser.Parser
             services.AddSingleton<CombatLogCombiner>();
         }
 
-        public static void PandarosParserSetup(this ContainerBuilder builder, IPandaLogger logger, IStatsReporter statsReporter)
+        public static void PandarosParserSetup(this ContainerBuilder builder, IPandaLogger logger, IStatsLogger statsReporter, IMongoClient mongoClient)
         {
             builder.RegisterInstance(logger).As<IPandaLogger>().SingleInstance();
-            builder.RegisterInstance(statsReporter).As<IStatsReporter>().SingleInstance();
+            builder.RegisterInstance(statsReporter).As<IStatsLogger>().SingleInstance();
+            builder.RegisterInstance(mongoClient).As<IMongoClient>().SingleInstance();
             builder.RegisterType<SpellDamageParser>().As<ICombatParser<SpellDamage>>().SingleInstance();
             builder.RegisterType<SwingDamageParser>().As<ICombatParser<SwingDamage>>().SingleInstance();
             builder.RegisterType<SpellFailedParser>().As<ICombatParser<SpellFailed>>().SingleInstance();
@@ -74,9 +77,10 @@ namespace Pandaros.WoWLogParser.Parser
             builder.RegisterType<CombatLogCombiner>().SingleInstance();
         }
 
-        internal static void SetupDataProviders(this ContainerBuilder builder, IPandaLogger logger)
+        internal static void SetupDataProviders(this ContainerBuilder builder, IPandaLogger logger, IMongoClient mongoClient)
         {
             builder.RegisterInstance(logger).As<IPandaLogger>().SingleInstance();
+            builder.RegisterInstance(mongoClient).As<IMongoClient>().SingleInstance();
         }
     }
 }

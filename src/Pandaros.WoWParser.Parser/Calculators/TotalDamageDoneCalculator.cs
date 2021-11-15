@@ -18,7 +18,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
         Dictionary<string, long> _noncritDamage = new Dictionary<string, long>();
         Dictionary<string, Dictionary<string, long>> _playerOwnedDamage = new Dictionary<string, Dictionary<string, long>>();
 
-        public TotalDamageDoneCalculator(IPandaLogger logger, IStatsReporter reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
+        public TotalDamageDoneCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
         {
             ApplicableEvents = new List<string>()
             {

@@ -68,7 +68,7 @@ namespace Pandaros.WoWLogParser.UI
             await Task.Run(() =>
             {
                 var builder = new ContainerBuilder();
-                builder.PandarosParserSetup(logger, logger);
+                builder.PandarosParserSetup(logger, logger, null);
 
                 var Container = builder.Build();
 
