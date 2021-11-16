@@ -11,7 +11,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
         internal Dictionary<string, Dictionary<string, long>> _shieldGivenDoneByPlayersTotal = new Dictionary<string, Dictionary<string, long>>();
         internal Dictionary<string, Dictionary<string, Dictionary<string, long>>> _playerSHieldedTotal = new Dictionary<string, Dictionary<string, Dictionary<string, long>>>();
 
-        private List<string> _shieldNames = new List<string>()
+        internal static List<string> _shieldNames = new List<string>()
         {
             "Ardent Defender",
             "Divine Aegis",
