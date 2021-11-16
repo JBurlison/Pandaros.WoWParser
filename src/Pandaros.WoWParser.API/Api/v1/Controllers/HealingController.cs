@@ -30,13 +30,49 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         }
 
         /// <summary>
+        ///     Gets the healing timeline, in 30 second chunks
+        /// </summary>
+        /// <remarks>
+        ///     Gets a healing timeline by fight Id and character id
+        /// </remarks>
+        /// <response code="201">The healing information</response>
+        [HttpGet, Route("GetTimeline")]
+        [MapToApiVersion("1.0")]
+        public HealingTimeline GetTimelineForPlayer(string fightId, string characterId)
+        {
+            return new HealingTimeline()
+            {
+                CharacterId = characterId,
+                FightId = fightId,
+                InstanceId = "92183C73-0112-41AC-9441-928EDDFE1E18",
+                HealEvents = new Dictionary<string, HealingEvent>()
+                {
+                    { 
+                        DateTime.UtcNow.ToString("O"), 
+                        new HealingEvent()
+                        {
+                            HPS = 518,
+                            TotalHealing = 15552,
+                            Events = new List<HealingInstance>()
+                                    {
+                                        new HealingInstance("Healing Touch", (long)8952),
+                                        new HealingInstance("Chain Heal", (long)6000),
+                                        new HealingInstance("Healing Stream Totem", (long)600)
+                                    }
+                        }
+                    }
+                }
+            };
+        }
+
+        /// <summary>
         ///     Gets a healing by fight Id
         /// </summary>
         /// <remarks>
         ///     Gets a healing by fight Id, add character id to get the characters specifc healing for the fight.
         /// </remarks>
         /// <response code="201">The healing information</response>
-        [HttpPost, Route("GetHealing")]
+        [HttpGet, Route("GetHealing")]
         [MapToApiVersion("1.0")]
         public HealingStats GetHealing(string fightId, string characterId = "")
         {

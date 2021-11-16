@@ -35,7 +35,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         ///     Gets a instance by Id
         /// </remarks>
         /// <response code="201">The Character information</response>
-        [HttpPost, Route("GetInstance")]
+        [HttpGet, Route("GetInstance")]
         [MapToApiVersion("1.0")]
         public WoWInstance GetInstance(string id)
         {

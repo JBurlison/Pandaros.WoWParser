@@ -42,7 +42,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
                     State.TryGetSourceOwnerName(combatEvent, out owner);
                 }
 
-                AddEvent(owner, combatEvent.Timestamp, heal.HealAmount + heal.Overhealing);
+                AddEvent(owner, combatEvent.Timestamp, spell.SpellName, heal.HealAmount + heal.Overhealing);
             }
             else if (combatEvent is IDamage damage &&
                 combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Npc &&
@@ -66,7 +66,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
 
                     foreach (var s in sheilds)
                     {
-                        AddEvent(s.Value, combatEvent.Timestamp, resolved);
+                        AddEvent(s.Value, combatEvent.Timestamp, s.Key, resolved);
                     }
                 }
             }
@@ -82,7 +82,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
 
         }
 
-        private void AddEvent(string name, DateTime eventTime, long healAmount)
+        private void AddEvent(string name, DateTime eventTime, string spellName, long healAmount)
         {
             if (!_healingByPersonPer5Minutes.TryGetValue(name, out var timeSeries))
             {
@@ -106,7 +106,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
                 timeSeries[eventTime] = snapshot;
             }
 
-            snapshot.HealingDone.Add(healAmount);
+            snapshot.HealingDone.Add(Tuple.Create(spellName, healAmount));
         }
     }
 }

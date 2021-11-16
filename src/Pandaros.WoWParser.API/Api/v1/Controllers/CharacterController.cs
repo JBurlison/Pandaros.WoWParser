@@ -35,7 +35,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         ///     Gets a character by Id
         /// </remarks>
         /// <response code="201">The Character information</response>
-        [HttpPost, Route("GetCharacter")]
+        [HttpGet, Route("GetCharacter")]
         [MapToApiVersion("1.0")]
         public WoWCharacter GetCharacter(string id)
         {

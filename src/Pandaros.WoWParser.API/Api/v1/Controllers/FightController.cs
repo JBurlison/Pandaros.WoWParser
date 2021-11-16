@@ -35,7 +35,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         ///     Gets a fight by Id
         /// </remarks>
         /// <response code="201">The Character information</response>
-        [HttpPost, Route("GetFight")]
+        [HttpGet, Route("GetFight")]
         [MapToApiVersion("1.0")]
         public WoWFight GetFight(string id)
         {
