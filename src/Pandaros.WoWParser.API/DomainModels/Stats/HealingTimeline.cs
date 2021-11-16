@@ -20,13 +20,18 @@ namespace Pandaros.WoWParser.API.DomainModels.Stats
     public class HealingInstance
     {
         public HealingInstance() { }
-        public HealingInstance(string spellName, long heal)
+        public HealingInstance(string spellName, long heal, int seconds, bool crit, string charId = null)
         {
             SpellName = spellName;
             HealAmount = heal;
+            SecondsSinceStart = seconds;
+            Crit = crit;
+            CharacterId = charId;
         }
-
+        public int SecondsSinceStart { get; set; }
         public string SpellName { get; set; }
         public long HealAmount { get; set; }
+        public bool Crit { get; set; }
+        public string CharacterId { get; set; }
     }
 }

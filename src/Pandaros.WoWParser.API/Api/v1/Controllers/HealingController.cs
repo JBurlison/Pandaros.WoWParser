@@ -30,13 +30,13 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         }
 
         /// <summary>
-        ///     Gets the healing timeline, in 30 second chunks
+        ///     Gets the healing timeline, in 10 second chunks
         /// </summary>
         /// <remarks>
         ///     Gets a healing timeline by fight Id and character id
         /// </remarks>
         /// <response code="201">The healing information</response>
-        [HttpGet, Route("GetTimeline")]
+        [HttpGet, Route("GetTimelineForPlayer")]
         [MapToApiVersion("1.0")]
         public HealingTimeline GetTimelineForPlayer(string fightId, string characterId)
         {
@@ -55,9 +55,73 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
                             TotalHealing = 15552,
                             Events = new List<HealingInstance>()
                                     {
-                                        new HealingInstance("Healing Touch", (long)8952),
-                                        new HealingInstance("Chain Heal", (long)6000),
-                                        new HealingInstance("Healing Stream Totem", (long)600)
+                                        new HealingInstance("Healing Touch", (long)8952, 10, true),
+                                        new HealingInstance("Chain Heal", (long)6000, 10, true),
+                                        new HealingInstance("Healing Stream Totem", (long)600, 11, false)
+                                    }
+                        }
+                    },
+                    {
+                        DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(10)).ToString("O"),
+                        new HealingEvent()
+                        {
+                            HPS = 512,
+                            TotalHealing = 15652,
+                            Events = new List<HealingInstance>()
+                                    {
+                                        new HealingInstance("Healing Touch", (long)9052, 20, false),
+                                        new HealingInstance("Chain Heal", (long)5000, 20, false),
+                                        new HealingInstance("Healing Stream Totem", (long)610, 20, true)
+                                    }
+                        }
+                    }
+                }
+            };
+        }
+
+        /// <summary>
+        ///     Gets the healing timeline, in 10 second chunks
+        /// </summary>
+        /// <remarks>
+        ///     Gets a healing timeline by fight Id and character id
+        /// </remarks>
+        /// <response code="201">The healing information</response>
+        [HttpGet, Route("GetTimelineForFight")]
+        [MapToApiVersion("1.0")]
+        public HealingTimeline GetTimelineForFight(string fightId)
+        {
+            return new HealingTimeline()
+            {
+                CharacterId = string.Empty,
+                FightId = fightId,
+                InstanceId = "92183C73-0112-41AC-9441-928EDDFE1E18",
+                HealEvents = new Dictionary<string, HealingEvent>()
+                {
+                    {
+                        DateTime.UtcNow.ToString("O"),
+                        new HealingEvent()
+                        {
+                            HPS = 518,
+                            TotalHealing = 15552,
+                            Events = new List<HealingInstance>()
+                                    {
+                                        new HealingInstance("Healing Touch", (long)8952, 10, true, "E8C291E6-BCE6-4033-9637-2E6E84045826"),
+                                        new HealingInstance("Chain Heal", (long)6000, 10, true, "E8C291E6-BCE6-4033-9637-2E6E84045826"),
+                                        new HealingInstance("Healing Stream Totem", (long)600, 11, false, "E8C291E6-BCE6-4033-9637-2E6E84045826")
+                                    }
+                        }
+                    },
+                    {
+                        DateTime.UtcNow.Subtract(TimeSpan.FromSeconds(10)).ToString("O"),
+                        new HealingEvent()
+                        {
+                            HPS = 512,
+                            TotalHealing = 15652,
+                            Events = new List<HealingInstance>()
+                                    {
+                                        new HealingInstance("Healing Touch", (long)9052, 20, false, "E8C291E6-BCE6-4033-9637-2E6E84045826"),
+                                        new HealingInstance("Chain Heal", (long)5000, 20, false, "E8C291E6-BCE6-4033-9637-2E6E84045826"),
+                                        new HealingInstance("Healing Stream Totem", (long)610, 20, true, "E8C291E6-BCE6-4033-9637-2E6E84045826")
                                     }
                         }
                     }

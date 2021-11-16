@@ -96,7 +96,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
             var healingBlock = timeSeries.Last();
             var snapshot = healingBlock.Value;
 
-            if (eventTime - healingBlock.Key > TimeSpan.FromSeconds(30))
+            if (eventTime - healingBlock.Key > TimeSpan.FromSeconds(10))
             {
                 snapshot = new HealingSnapshot()
                 {
