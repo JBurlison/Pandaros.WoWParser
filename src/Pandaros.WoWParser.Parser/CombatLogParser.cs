@@ -72,7 +72,6 @@ namespace Pandaros.WoWLogParser.Parser
                             continue;
 
                         state.ProcessCombatEvent(evt, evtStr);
-                        allFights.ProcessCombatEvent(evt, evtStr);
 
                         if (state.CurrentFight != null)
                         {
@@ -80,6 +79,7 @@ namespace Pandaros.WoWLogParser.Parser
                                 allFights.CurrentFight.ChildIds.Add(state.CurrentFight.Id);
 
                             state.CurrentFight.ParentId = allFights.CurrentFight.Id;
+                            allFights.ProcessCombatEvent(evt, evtStr);
                         }
                     }
 

@@ -16,12 +16,7 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
             ApplicableEvents = new List<string>()
                 {
                     LogEvents.SPELL_HEAL,
-                    LogEvents.SPELL_PERIODIC_HEAL,
-                    LogEvents.SPELL_DAMAGE,
-                    LogEvents.RANGE_DAMAGE,
-                    LogEvents.SWING_DAMAGE,
-                    LogEvents.SPELL_PERIODIC_DAMAGE,
-                    LogEvents.DAMAGE_SHIELD
+                    LogEvents.SPELL_PERIODIC_HEAL
                 };
         }
 
@@ -42,7 +37,8 @@ namespace Pandaros.WoWLogParser.Parser.Calculators
                     State.TryGetSourceOwnerName(combatEvent, out owner);
                 }
 
-                AddEvent(owner, combatEvent.Timestamp, spell.SpellName, heal.HealAmount + heal.Overhealing);
+                if (!string.IsNullOrEmpty(owner))
+                    AddEvent(owner, combatEvent.Timestamp, spell.SpellName, heal.HealAmount + heal.Overhealing);
             }
             else if (combatEvent is IDamage damage &&
                 combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Npc &&

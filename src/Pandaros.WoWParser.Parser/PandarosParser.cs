@@ -51,6 +51,10 @@ namespace Pandaros.WoWLogParser.Parser
         {
             builder.RegisterInstance(logger).As<IPandaLogger>().SingleInstance();
             builder.RegisterInstance(statsReporter).As<IStatsLogger>().SingleInstance();
+
+            if (mongoClient == null)
+                mongoClient = new MongoClient();
+
             builder.RegisterInstance(mongoClient).As<IMongoClient>().SingleInstance();
             builder.RegisterType<SpellDamageParser>().As<ICombatParser<SpellDamage>>().SingleInstance();
             builder.RegisterType<SwingDamageParser>().As<ICombatParser<SwingDamage>>().SingleInstance();
