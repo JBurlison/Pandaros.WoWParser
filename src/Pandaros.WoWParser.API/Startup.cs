@@ -12,6 +12,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
+using MongoDB.Driver;
+using Pandaros.WoWLogParser.Parser;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;
@@ -70,6 +72,12 @@ namespace Pandaros.WoWParser.API
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
             });
+
+            var mongoConString = Configuration["ConnectionStrings:Mongo"];
+            IMongoClient client = new MongoClient(mongoConString);
+            var logger = new PandaLogger("./logs/");
+            services.AddSingleton<IMongoClient>(client);
+            services.PandarosParserSetup(logger, logger, client);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
