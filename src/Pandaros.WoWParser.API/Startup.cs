@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http.Features;
@@ -13,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
+using Pandaros.WoWParser.API.Authorization;
 using Pandaros.WoWParser.Parser;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -78,6 +80,8 @@ namespace Pandaros.WoWParser.API
             var logger = new PandaLogger("./logs/");
             services.AddSingleton<IMongoClient>(client);
             services.PandarosParserSetup(logger, logger, client);
+            services.AddAuthorization();
+            services.AddSingleton<IAuthenticationService, AuthorizeUser>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

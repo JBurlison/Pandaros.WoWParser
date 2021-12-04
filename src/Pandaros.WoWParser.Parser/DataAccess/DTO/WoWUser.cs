@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Pandaros.WoWParser.Parser.DataAccess.DTO
 {
     [BsonIgnoreExtraElements]
-    internal class WoWUser : IdEquatable<WoWUser>
+    public class WoWUser : IdEquatable<WoWUser>
     {
 
         internal string Username { get; set; }

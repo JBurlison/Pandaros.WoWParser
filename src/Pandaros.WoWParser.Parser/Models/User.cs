@@ -13,7 +13,7 @@ namespace Pandaros.WoWParser.Parser.Models
 
         public string PasswordHash { get; set; }
         public string Timezone { get; set; }
-
+        public string AuthToken { get; set; }
         public bool WebAdmin { get; set; } = false;
 
         public List<string> CharacterIDs { get; set; } = new List<string>();

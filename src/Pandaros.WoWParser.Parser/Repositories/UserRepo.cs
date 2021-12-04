@@ -1,22 +1,17 @@
 ﻿using AutoMapper;
 using Pandaros.WoWParser.Parser.DataAccess;
+using Pandaros.WoWParser.Parser.DataAccess.DTO;
+using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Pandaros.WoWParser.Parser.Repositories
 {
-    public class UserRepo
+    public class UserRepo : RepoBase<User, WoWUser, UserData>
     {
-        UserData _userData;
-        IMapper _mapper;
-
-        internal UserRepo(UserData userData, IMapper mapper)
+        internal UserRepo(UserData dataAccess, IMapper mapper) : base(dataAccess, mapper)
         {
-            _userData = userData;
-            _mapper = mapper;
         }
-
-
     }
 }

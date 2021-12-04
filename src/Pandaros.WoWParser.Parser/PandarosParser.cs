@@ -49,6 +49,15 @@ namespace Pandaros.WoWParser.Parser
             services.AddScoped<IFightMonitorFactory, FightMonitorFactory>();
             services.AddScoped<CombatLogParser>();
             services.AddSingleton<CombatLogCombiner>();
+            services.AddSingleton<UserData>();
+            services.AddSingleton<UserRepo>();
+            services.AddSingleton<CharacterData>();
+            services.AddSingleton<FightsData>();
+            services.AddSingleton<GuildsData>();
+            services.AddSingleton<HostData>();
+            services.AddSingleton<InstanceData>();
+            services.AddSingleton<InstanceInfoData>();
+            services.AddSingleton<ServerData>();
         }
 
         public static void PandarosParserSetup(this ContainerBuilder builder, IPandaLogger logger, IStatsLogger statsReporter, IMongoClient mongoClient)

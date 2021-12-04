@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Pandaros.WoWParser.Parser
 {
-    internal interface IdEquatable<T>
+    public interface IdEquatable<T>
     {
         bool EquilIds(T obj);
 

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using MongoDB;
 using MongoDB.Driver;
 
 namespace Pandaros.WoWParser.Parser.DataAccess
 {
-    internal abstract class MongoBase<T> where T : IdEquatable<T>
+    public abstract class MongoBase<T> where T : IdEquatable<T>
     {
         protected internal IMongoCollection<T> Collection { get; private set; }
 
@@ -19,24 +20,25 @@ namespace Pandaros.WoWParser.Parser.DataAccess
             Collection = db.GetCollection<T>(CollectionName);
         }
 
-        internal virtual T Get(string id)
+        internal async virtual Task<T> GetAsync(string id)
         {
-            return Collection.Find(u => u.EquilIds(id)).FirstOrDefault();
+            var result = await Collection.FindAsync(u => u.EquilIds(id));
+            return result.FirstOrDefault();
         }
 
-        internal virtual void Delete(string id)
+        internal async virtual Task Delete(string id)
         {
-            Collection.DeleteOne(u => u.EquilIds(id));
+            await Collection.DeleteOneAsync(u => u.EquilIds(id));
         }
 
-        internal virtual void Upsert(T obj)
+        internal async virtual Task Upsert(T obj)
         {
-            var existing = Get(obj.GetId());
+            var existing = await GetAsync(obj.GetId());
 
             if (existing == null)
-                Collection.InsertOne(obj);
+                await Collection.InsertOneAsync(obj);
             else
-                Collection.ReplaceOne(u => u.EquilIds(obj), obj);
+                await Collection.ReplaceOneAsync(u => u.EquilIds(obj), obj);
         }
     }
 }

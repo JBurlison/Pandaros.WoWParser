@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Pandaros.WoWParser.API.Api.v1.ViewModels;
 using System;
@@ -11,6 +12,8 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
     /// <summary>
     ///     
     /// </summary>
+    /// 
+    [Authorize]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("[controller]")]
@@ -36,6 +39,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="201">New user was successfully created</response>
         [HttpPost, Route("CreateOAuthUser")]
         [MapToApiVersion("1.0")]
+        [AllowAnonymous]
         public void CreateOAuthUser(string name, string email, string oAuthToken)
         {
 
@@ -50,6 +54,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="201">New user was successfully created</response>
         [HttpPost, Route("CreateUser")]
         [MapToApiVersion("1.0")]
+        [AllowAnonymous]
         public void CreateUser([FromBody]CreateUserViewV1 user)
         {
             
@@ -87,6 +92,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="201">Returns the user object</response>
         [HttpGet, Route("LogIn")]
         [MapToApiVersion("1.0")]
+        [AllowAnonymous]
         public UserViewV1 LogIn(string emailAddress, string password)
         {
             return new UserViewV1()
@@ -111,6 +117,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="201">Logged out on the server</response>
         [HttpGet, Route("LogOut")]
         [MapToApiVersion("1.0")]
+        [AllowAnonymous]
         public void LogOut(string emailAddress)
         {
            
