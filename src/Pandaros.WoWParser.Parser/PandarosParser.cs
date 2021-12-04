@@ -15,6 +15,8 @@ using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
 using Pandaros.WoWParser.Parser.DataAccess;
 using Pandaros.WoWParser.Parser.Repositories;
+using System.Reflection;
+using AutoMapper.Contrib.Autofac.DependencyInjection;
 
 namespace Pandaros.WoWParser.Parser
 {
@@ -92,6 +94,7 @@ namespace Pandaros.WoWParser.Parser
             builder.RegisterType<ServerData>().SingleInstance();
             builder.RegisterType<UserData>().SingleInstance();
             builder.RegisterType<UserRepo>().SingleInstance();
+            builder.RegisterAutoMapper(Assembly.GetExecutingAssembly());
         }
     }
 }

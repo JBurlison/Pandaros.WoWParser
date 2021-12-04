@@ -7,7 +7,7 @@ using MongoDB.Bson.Serialization.Attributes;
 namespace Pandaros.WoWParser.Parser.DataAccess.DTO
 {
     [BsonIgnoreExtraElements]
-    internal class User : IdEquatable<User>
+    internal class WoWUser : IdEquatable<WoWUser>
     {
 
         internal string Username { get; set; }
@@ -23,7 +23,7 @@ namespace Pandaros.WoWParser.Parser.DataAccess.DTO
 
         internal List<string> CharacterIDs { get; set; } = new List<string>();
 
-        public bool EquilIds(User obj)
+        public bool EquilIds(WoWUser obj)
         {
             return EmailAddress == obj.EmailAddress;
         }

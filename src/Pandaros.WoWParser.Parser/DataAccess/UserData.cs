@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Pandaros.WoWParser.Parser.DataAccess
 {
-    internal class UserData : MongoBase<User>
+    internal class UserData : MongoBase<WoWUser>
     {
         protected override internal string DatabaseName { get; set; } = DatabaseNames.PandarosParser;
         protected override internal string CollectionName { get; set; } = CollectionNames.User;
