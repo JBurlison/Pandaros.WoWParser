@@ -2,14 +2,14 @@
 using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-using Pandaros.WoWLogParser.Parser.Models;
+using Pandaros.WoWParser.Parser.Models;
 using System.Threading.Tasks;
-using Pandaros.WoWLogParser.Parser.Parsers;
-using Pandaros.WoWLogParser.Parser.Calculators;
-using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWParser.Parser.Parsers;
+using Pandaros.WoWParser.Parser.Calculators;
+using Pandaros.WoWParser.Parser.FightMonitor;
 using MongoDB.Driver;
 
-namespace Pandaros.WoWLogParser.Parser
+namespace Pandaros.WoWParser.Parser
 {
     public class CombatLogParser
     {

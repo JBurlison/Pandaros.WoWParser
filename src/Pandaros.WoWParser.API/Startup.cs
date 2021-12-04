@@ -13,7 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using MongoDB.Driver;
-using Pandaros.WoWLogParser.Parser;
+using Pandaros.WoWParser.Parser;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
 using System.Collections.Generic;

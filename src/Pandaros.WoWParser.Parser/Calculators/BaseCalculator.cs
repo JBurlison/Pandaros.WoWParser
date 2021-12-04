@@ -1,10 +1,10 @@
-﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
-using Pandaros.WoWLogParser.Parser.Models;
+﻿using Pandaros.WoWParser.Parser.FightMonitor;
+using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser.Calculators
+namespace Pandaros.WoWParser.Parser.Calculators
 {
     public abstract class BaseCalculator : ICalculator
     {

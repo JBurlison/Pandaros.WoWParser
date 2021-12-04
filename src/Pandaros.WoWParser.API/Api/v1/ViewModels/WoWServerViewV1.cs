@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pandaros.WoWParser.API.DomainModels
+namespace Pandaros.WoWParser.API.Api.v1.ViewModels
 {
-    public class WoWServer
+    public class WoWServerViewV1
     {
         public string ID { get; set; }
         public string Name { get; set; }

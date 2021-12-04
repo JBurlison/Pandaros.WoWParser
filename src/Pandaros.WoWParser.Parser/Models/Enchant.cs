@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser.Models
+namespace Pandaros.WoWParser.Parser.Models
 {
     public class Enchant : CombatEventBase, IEnchant
     {

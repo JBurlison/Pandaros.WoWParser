@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Pandaros.WoWLogParser.Parser
+namespace Pandaros.WoWParser.Parser
 {
     /// <summary>
     /// Extension methods that convert combat log string values to their corresponding C# types

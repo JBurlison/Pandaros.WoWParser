@@ -1,20 +1,22 @@
-﻿using Pandaros.WoWLogParser.Parser.Models;
+﻿using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Autofac;
-using Pandaros.WoWLogParser.Parser.Parsers;
+using Pandaros.WoWParser.Parser.Parsers;
 using System.Collections.Generic;
-using Pandaros.WoWLogParser.Parser.Calculators;
-using Pandaros.WoWLogParser.Parser.FightMonitor;
+using Pandaros.WoWParser.Parser.Calculators;
+using Pandaros.WoWParser.Parser.FightMonitor;
 using System.Configuration;
 using Newtonsoft.Json;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
 using MongoDB.Driver;
+using Pandaros.WoWParser.Parser.DataAccess;
+using Pandaros.WoWParser.Parser.Repositories;
 
-namespace Pandaros.WoWLogParser.Parser
+namespace Pandaros.WoWParser.Parser
 {
     public static class PandarosParser
     {
@@ -51,10 +53,6 @@ namespace Pandaros.WoWLogParser.Parser
         {
             builder.RegisterInstance(logger).As<IPandaLogger>().SingleInstance();
             builder.RegisterInstance(statsReporter).As<IStatsLogger>().SingleInstance();
-
-            if (mongoClient == null)
-                mongoClient = new MongoClient();
-
             builder.RegisterInstance(mongoClient).As<IMongoClient>().SingleInstance();
             builder.RegisterType<SpellDamageParser>().As<ICombatParser<SpellDamage>>().SingleInstance();
             builder.RegisterType<SwingDamageParser>().As<ICombatParser<SwingDamage>>().SingleInstance();
@@ -85,6 +83,15 @@ namespace Pandaros.WoWLogParser.Parser
         {
             builder.RegisterInstance(logger).As<IPandaLogger>().SingleInstance();
             builder.RegisterInstance(mongoClient).As<IMongoClient>().SingleInstance();
+            builder.RegisterType<CharacterData>().SingleInstance();
+            builder.RegisterType<FightsData>().SingleInstance();
+            builder.RegisterType<GuildsData>().SingleInstance();
+            builder.RegisterType<HostData>().SingleInstance();
+            builder.RegisterType<InstanceData>().SingleInstance();
+            builder.RegisterType<InstanceInfoData>().SingleInstance();
+            builder.RegisterType<ServerData>().SingleInstance();
+            builder.RegisterType<UserData>().SingleInstance();
+            builder.RegisterType<UserRepo>().SingleInstance();
         }
     }
 }

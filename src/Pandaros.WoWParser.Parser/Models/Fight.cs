@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Pandaros.WoWParser.API.DomainModels
+namespace Pandaros.WoWParser.Parser.Models
 {
-    public class WoWFight
+    public class Fight
     {
         public string InstanceId { get; set; }
         public string FightId { get; set; }

@@ -1,4 +1,4 @@
-﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+﻿using Pandaros.WoWParser.Parser.FightMonitor;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 
-namespace Pandaros.WoWLogParser.Parser
+namespace Pandaros.WoWParser.Parser
 {
     /// <summary>
     /// Actions that apply to system files.

@@ -37,12 +37,13 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="201">The Character information</response>
         [HttpGet, Route("GetCharacter")]
         [MapToApiVersion("1.0")]
-        public WoWCharacter GetCharacter(string id)
+        public WoWCharacterViewV1 GetCharacter(string id)
         {
-            return new WoWCharacter()
+            return new WoWCharacterViewV1()
             {
                 PlayerID = "Pandaros",
                 ID = "E8C291E6-BCE6-4033-9637-2E6E84045826",
+                CharacterName = "Pandaros",
                 GuildId = "",
                 InstanceIds = new Dictionary<string, Dictionary<string, string>>()
                 {

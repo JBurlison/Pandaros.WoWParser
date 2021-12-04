@@ -4,21 +4,38 @@ using System.Text;
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace Pandaros.WoWLogParser.Parser.DataAccess.DTO
+namespace Pandaros.WoWParser.Parser.DataAccess.DTO
 {
     [BsonIgnoreExtraElements]
-    public class User
+    internal class User : IdEquatable<User>
     {
 
-        public string Username { get; set; }
+        internal string Username { get; set; }
 
         [BsonElement("_id")]
-        public string EmailAddress { get; set; }
+        internal string EmailAddress { get; set; }
 
-        public bool WebAdmin { get; set; } = false;
+        internal string PasswordHash { get; set; }
 
-        public string AuthToken { get; set; }
+        internal bool WebAdmin { get; set; } = false;
 
-        public List<string> CharacterIDs { get; set; } = new List<string>();
+        internal string AuthToken { get; set; }
+
+        internal List<string> CharacterIDs { get; set; } = new List<string>();
+
+        public bool EquilIds(User obj)
+        {
+            return EmailAddress == obj.EmailAddress;
+        }
+
+        public bool EquilIds(string id)
+        {
+            return EmailAddress == id;
+        }
+
+        public string GetId()
+        {
+            return EmailAddress;
+        }
     }
 }

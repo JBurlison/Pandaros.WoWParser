@@ -1,5 +1,6 @@
 ﻿using Pandaros.WoWParser.API.Api.v1.ViewModels;
 using Pandaros.WoWParser.API.DomainModels;
+using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Mappers
 {
     public interface IUserMapperV1
     {
-        public UserViewV1 Map(ParserUser user);
-        public ParserUser Map(UserViewV1 user);
+        public UserViewV1 Map(User user);
+        public User Map(UserViewV1 user);
     }
 }

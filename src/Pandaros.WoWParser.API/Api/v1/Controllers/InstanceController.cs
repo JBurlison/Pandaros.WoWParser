@@ -37,9 +37,9 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="201">The Character information</response>
         [HttpGet, Route("GetInstance")]
         [MapToApiVersion("1.0")]
-        public WoWInstance GetInstance(string id)
+        public WoWInstanceViewV1 GetInstance(string id)
         {
-            return new WoWInstance()
+            return new WoWInstanceViewV1()
             {
                 InstanceId = "92183C73-0112-41AC-9441-928EDDFE1E18",
                 CharacterIds = new List<string>() { "E8C291E6-BCE6-4033-9637-2E6E84045826" },

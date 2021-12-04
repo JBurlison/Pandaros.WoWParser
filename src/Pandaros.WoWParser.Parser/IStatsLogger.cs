@@ -1,9 +1,9 @@
-﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
+﻿using Pandaros.WoWParser.Parser.FightMonitor;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser
+namespace Pandaros.WoWParser.Parser
 {
     public interface IStatsLogger
     {

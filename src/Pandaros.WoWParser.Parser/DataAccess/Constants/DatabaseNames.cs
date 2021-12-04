@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser.DataAccess.Constants
+namespace Pandaros.WoWParser.Parser.DataAccess.Constants
 {
     public static class DatabaseNames
     {

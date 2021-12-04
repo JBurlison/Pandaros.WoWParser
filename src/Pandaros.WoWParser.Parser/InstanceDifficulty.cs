@@ -1,4 +1,4 @@
-﻿namespace Pandaros.WoWLogParser.Parser
+﻿namespace Pandaros.WoWParser.Parser
 {
     // Combat Log type
     public enum InstanceDifficulty

@@ -1,6 +1,6 @@
 ﻿using Autofac;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Pandaros.WoWLogParser.Parser;
+using Pandaros.WoWParser.Parser;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -8,7 +8,7 @@ using System.Diagnostics;
 using System.Text;
 using System.Threading;
 
-namespace Pandaros.WoWLogParser.Tests
+namespace Pandaros.WoWParser.Tests
 {
     [TestClass()]
     public class PandarosParserTests

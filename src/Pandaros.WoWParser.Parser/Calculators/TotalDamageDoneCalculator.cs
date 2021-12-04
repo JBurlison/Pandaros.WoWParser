@@ -1,12 +1,12 @@
-﻿using Pandaros.WoWLogParser.Parser.FightMonitor;
-using Pandaros.WoWLogParser.Parser.Models;
+﻿using Pandaros.WoWParser.Parser.FightMonitor;
+using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
 using Newtonsoft.Json;
 
-namespace Pandaros.WoWLogParser.Parser.Calculators
+namespace Pandaros.WoWParser.Parser.Calculators
 {
     public class TotalDamageDoneCalculator : BaseCalculator
     {

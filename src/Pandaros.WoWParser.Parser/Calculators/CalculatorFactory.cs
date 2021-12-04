@@ -1,14 +1,14 @@
 ﻿using Autofac;
 using MongoDB.Driver;
-using Pandaros.WoWLogParser.Parser.FightMonitor;
-using Pandaros.WoWLogParser.Parser.Models;
+using Pandaros.WoWParser.Parser.FightMonitor;
+using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser.Calculators
+namespace Pandaros.WoWParser.Parser.Calculators
 {
     public class CalculatorFactory : ICalculatorFactory
     {

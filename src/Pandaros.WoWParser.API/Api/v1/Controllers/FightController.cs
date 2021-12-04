@@ -37,9 +37,9 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="201">The Character information</response>
         [HttpGet, Route("GetFight")]
         [MapToApiVersion("1.0")]
-        public WoWFight GetFight(string id)
+        public WoWFightViewV1 GetFight(string id)
         {
-            return new WoWFight()
+            return new WoWFightViewV1()
             {
                 FightId = "CF2EC121-83D2-4DBA-92CD-F42E7AA4B81B",
                 CharacterIds = new List<string>() { "E8C291E6-BCE6-4033-9637-2E6E84045826" },

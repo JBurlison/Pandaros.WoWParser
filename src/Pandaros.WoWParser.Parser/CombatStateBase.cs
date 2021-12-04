@@ -1,9 +1,9 @@
-﻿using Pandaros.WoWLogParser.Parser.Calculators;
-using Pandaros.WoWLogParser.Parser.FightMonitor;
-using Pandaros.WoWLogParser.Parser.Models;
+﻿using Pandaros.WoWParser.Parser.Calculators;
+using Pandaros.WoWParser.Parser.FightMonitor;
+using Pandaros.WoWParser.Parser.Models;
 using System.Collections.Generic;
 
-namespace Pandaros.WoWLogParser.Parser
+namespace Pandaros.WoWParser.Parser
 {
     public abstract class CombatStateBase : ICombatState
     {

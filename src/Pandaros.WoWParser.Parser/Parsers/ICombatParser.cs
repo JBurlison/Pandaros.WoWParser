@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Pandaros.WoWLogParser.Parser.Models;
+using Pandaros.WoWParser.Parser.Models;
 
-namespace Pandaros.WoWLogParser.Parser.Parsers
+namespace Pandaros.WoWParser.Parser.Parsers
 {
     public interface ICombatParser<T> where T : CombatEventBase
     {

@@ -1,12 +1,12 @@
 ﻿using MongoDB.Driver;
-using Pandaros.WoWLogParser.Parser.Calculators;
-using Pandaros.WoWLogParser.Parser.Models;
+using Pandaros.WoWParser.Parser.Calculators;
+using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser.FightMonitor
+namespace Pandaros.WoWParser.Parser.FightMonitor
 {
     public class FightMonitorFactory : IFightMonitorFactory
     {

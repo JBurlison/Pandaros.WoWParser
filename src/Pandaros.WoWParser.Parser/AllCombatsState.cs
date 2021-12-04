@@ -1,13 +1,13 @@
 ﻿using MongoDB.Driver;
-using Pandaros.WoWLogParser.Parser.Calculators;
-using Pandaros.WoWLogParser.Parser.FightMonitor;
-using Pandaros.WoWLogParser.Parser.Models;
-using Pandaros.WoWLogParser.Parser.Parsers;
+using Pandaros.WoWParser.Parser.Calculators;
+using Pandaros.WoWParser.Parser.FightMonitor;
+using Pandaros.WoWParser.Parser.Models;
+using Pandaros.WoWParser.Parser.Parsers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser
+namespace Pandaros.WoWParser.Parser
 {
     public class AllCombatsState : CombatStateBase
     {

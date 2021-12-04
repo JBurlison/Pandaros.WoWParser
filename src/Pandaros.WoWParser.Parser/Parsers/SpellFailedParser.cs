@@ -1,9 +1,9 @@
-﻿using Pandaros.WoWLogParser.Parser.Models;
+﻿using Pandaros.WoWParser.Parser.Models;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Pandaros.WoWLogParser.Parser.Parsers
+namespace Pandaros.WoWParser.Parser.Parsers
 {
     public class SpellFailedParser : SpellParser, ICombatParser<SpellFailed>
     {
