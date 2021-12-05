@@ -21,7 +21,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
     ///     
     /// </summary>
     /// 
-    [Authorize]
+    [Authorize(AuthenticationSchemes = "PandaAuth")]
     [ApiController]
     [ApiVersion("1.0")]
     [Route("[controller]")]
@@ -94,6 +94,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// </remarks>
         /// <response code="201">New user was successfully created</response>
         /// <response code="400">Missing reuired field.</response>
+        /// <response code="401">Unautherized.</response>
         /// <response code="404">User not found.</response>
         [HttpPost, Route("LinkUserToOauth")]
         [MapToApiVersion("1.0")]
@@ -130,6 +131,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// <response code="200">Returns the user object</response>
         /// <response code="400">Missing reuired field.</response>
         /// <response code="404">User not found.</response>
+        /// <response code="401">Unautherized.</response>
         [HttpGet, Route("GetUser")]
         [MapToApiVersion("1.0")]
         public async Task<UserViewV1> GetUser(string emailAddress)
@@ -216,6 +218,7 @@ namespace Pandaros.WoWParser.API.Api.v1.Controllers
         /// </remarks>
         /// <response code="201">Logged out on the server</response>
         /// <response code="400">Missing reuired field.</response>
+        /// <response code="401">Unautherized.</response>
         /// <response code="404">User not found.</response>
         [HttpGet, Route("LogOut")]
         [MapToApiVersion("1.0")]

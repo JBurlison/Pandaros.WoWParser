@@ -61,7 +61,8 @@ namespace Pandaros.WoWParser.API
                 setup.SubstituteApiVersionInUrl = true;
             });
 
-            services.AddSwaggerGen(options => {
+            services.AddSwaggerGen(options =>
+            {
 
                 options.OperationFilter<DefaultValuesFilter>();
                 options.IncludeXmlComments(XmlCommentsFileName);
@@ -70,7 +71,8 @@ namespace Pandaros.WoWParser.API
 
             services.ConfigureOptions<ConfigureSwaggerOptions>();
 
-            services.Configure<FormOptions>(o => {
+            services.Configure<FormOptions>(o =>
+            {
                 o.ValueLengthLimit = int.MaxValue;
                 o.MultipartBodyLengthLimit = int.MaxValue;
                 o.MemoryBufferThreshold = int.MaxValue;
@@ -82,7 +84,10 @@ namespace Pandaros.WoWParser.API
             services.AddSingleton<IMongoClient>(client);
             services.PandarosParserSetup(logger, logger, client);
             services.AddAuthorization();
-            services.AddSingleton<IAuthenticationService, AuthorizeUser>();
+            services.AddAuthentication(options =>
+            {
+                options.DefaultScheme = "PandaAuth";
+            }).AddScheme<ValidateHashAuthenticationSchemeOptions, ValidateHashAuthenticationHandler>("PandaAuth", null);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
