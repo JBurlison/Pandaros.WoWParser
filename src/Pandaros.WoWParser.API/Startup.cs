@@ -65,6 +65,7 @@ namespace Pandaros.WoWParser.API
 
                 options.OperationFilter<DefaultValuesFilter>();
                 options.IncludeXmlComments(XmlCommentsFileName);
+                options.OperationFilter<AddRequiredHeaderParameter>();
             });
 
             services.ConfigureOptions<ConfigureSwaggerOptions>();

@@ -11,7 +11,7 @@ namespace Pandaros.WoWParser.Parser
     {
         public MapperProfile()
         {
-            CreateMap<User, WoWUser>().ReverseMap();
+            CreateMap<User, WoWUser>().ConstructUsing(s => new WoWUser(s)).ReverseMap().ConstructUsing(s => new User(s));
             CreateMap<Fight, WoWFight>().ReverseMap();
             CreateMap<Guild, WoWGuild>().ReverseMap();
             CreateMap<Host, WoWHost>().ReverseMap();

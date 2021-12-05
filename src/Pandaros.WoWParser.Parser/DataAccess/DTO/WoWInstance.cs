@@ -7,33 +7,23 @@ using System.Threading.Tasks;
 namespace Pandaros.WoWParser.Parser.DataAccess.DTO
 {
     [BsonIgnoreExtraElements]
-    internal class WoWInstance : IdEquatable<WoWInstance>
+    public class WoWInstance : BaseDto
     {
-        [BsonElement("_id")]
-        internal string InstanceId { get; set; }
+        [BsonElement]
         internal string InstanceName { get; set; }
+        [BsonElement]
         internal DateTime StartTime { get; set; }
+        [BsonElement]
         internal DateTime EndTime { get; set; }
+        [BsonElement]
         internal List<string> CharacterIds { get; set; } = new List<string>();
+        [BsonElement]
         internal List<string> GuildIds { get; set; } = new List<string>();
         /// <summary>
         ///  In order of fights that happend.
         /// </summary>
+        [BsonElement]
         internal List<string> FightIds { get; set; } = new List<string>();
 
-        public bool EquilIds(WoWInstance obj)
-        {
-            return InstanceId == obj.InstanceId;
-        }
-
-        public bool EquilIds(string id)
-        {
-            return InstanceId == id;
-        }
-
-        public string GetId()
-        {
-            return InstanceId;
-        }
     }
 }

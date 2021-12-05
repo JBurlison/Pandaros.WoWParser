@@ -22,14 +22,14 @@ namespace Pandaros.WoWParser.API.Authorization
 
         public async Task<AuthenticateResult> AuthenticateAsync(HttpContext context, string scheme)
         {
-            if (context.Request.Headers.TryGetValue("user", out var email))
+            if (context.Request.Headers.TryGetValue("panda-user", out var email))
             {
                 var existing = await _userRepo.GetAsync(email);
 
                 if (existing == null)
                     return AuthenticateResult.Fail("Unknown message.");
 
-                if (context.Request.Headers.TryGetValue("token", out var accessToken) && existing.AuthToken.Equals(accessToken))
+                if (context.Request.Headers.TryGetValue("panda-token", out var accessToken) && existing.AuthToken.Equals(accessToken))
                 {
                     return AuthenticateResult.Success(new AuthenticationTicket(new ClaimsPrincipal(new UserId(existing.EmailAddress, true)), "PandaAuth"));
                 }
@@ -38,10 +38,20 @@ namespace Pandaros.WoWParser.API.Authorization
             return AuthenticateResult.Fail("Unknown message.");
         }
 
-        public Task ChallengeAsync(HttpContext context, string scheme, AuthenticationProperties properties)
+        public async Task ChallengeAsync(HttpContext context, string scheme, AuthenticationProperties properties)
         {
-            context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-            return Task.CompletedTask;
+            if (context.Request.Headers.TryGetValue("panda-user", out var email))
+            {
+                var existing = await _userRepo.GetAsync(email);
+
+                if (existing == null || !context.Request.Headers.TryGetValue("panda-token", out var accessToken) || !existing.AuthToken.Equals(accessToken))
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                    return;
+                }
+            }
+
+            return;
         }
 
         public Task ForbidAsync(HttpContext context, string scheme, AuthenticationProperties properties)

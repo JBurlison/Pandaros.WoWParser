@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 namespace Pandaros.WoWParser.Parser.DataAccess.DTO
 {
     [BsonIgnoreExtraElements]
-    internal class WoWCharacter : IdEquatable<WoWCharacter>
+    public class WoWCharacter : BaseDto
     {
-        [BsonElement("_id")]
-        internal string ID { get; set; }
         internal string PlayerID { get; set; }
         internal string CharacterName { get; set; }
         internal string GuildId { get; set; }
@@ -18,21 +16,5 @@ namespace Pandaros.WoWParser.Parser.DataAccess.DTO
         internal string Role { get; set; }
         // key: Instance name, Date of instance, with the instance id.
         internal Dictionary<string, Dictionary<string, string>> InstanceIds { get; set; } = new Dictionary<string, Dictionary<string, string>>();
-
-        public bool EquilIds(WoWCharacter obj)
-        {
-            return ID == obj.ID;
-        }
-
-        public bool EquilIds(string id)
-        {
-            return ID == id;
-        }
-
-        public string GetId()
-        {
-            return ID;
-        }
-
     }
 }

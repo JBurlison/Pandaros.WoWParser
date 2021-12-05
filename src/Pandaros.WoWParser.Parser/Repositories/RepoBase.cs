@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Pandaros.WoWParser.Parser.DataAccess;
+using Pandaros.WoWParser.Parser.DataAccess.DTO;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Pandaros.WoWParser.Parser.Repositories
 {
-    public class RepoBase<T, DTO, DB> where DTO : IdEquatable<DTO> 
+    public class RepoBase<T, DTO, DB> where DTO : BaseDto
                                       where DB : MongoBase<DTO> 
     {
         internal DB _dataAccess;

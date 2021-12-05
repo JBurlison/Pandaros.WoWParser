@@ -7,27 +7,13 @@ using System.Threading.Tasks;
 namespace Pandaros.WoWParser.Parser.DataAccess.DTO
 {
     [BsonIgnoreExtraElements]
-    internal class WoWServer : IdEquatable<WoWServer>
+    public class WoWServer : BaseDto
     {
-        [BsonElement("_id")]
-        internal string ID { get; set; }
+        [BsonElement]
         internal string Name { get; set; }
+        [BsonElement]
         internal string Region { get; set; }
+        [BsonElement]
         internal string HostID { get; set; }
-
-        public bool EquilIds(WoWServer obj)
-        {
-            return ID == obj.ID;
-        }
-
-        public bool EquilIds(string id)
-        {
-            return ID == id;
-        }
-
-        public string GetId()
-        {
-            return ID;
-        }
     }
 }

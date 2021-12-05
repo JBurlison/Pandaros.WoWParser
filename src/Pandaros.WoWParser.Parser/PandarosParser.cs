@@ -62,8 +62,8 @@ namespace Pandaros.WoWParser.Parser
 
             services.AddAutoMapper(cfg =>
             {
-                cfg.AddProfile<MapperProfile>();
-            }, Assembly.GetExecutingAssembly());
+                cfg.AddProfile(new MapperProfile());
+            });
         }
 
         public static void PandarosParserSetup(this ContainerBuilder builder, IPandaLogger logger, IStatsLogger statsReporter, IMongoClient mongoClient)
@@ -109,7 +109,10 @@ namespace Pandaros.WoWParser.Parser
             builder.RegisterType<ServerData>().SingleInstance();
             builder.RegisterType<UserData>().SingleInstance();
             builder.RegisterType<UserRepo>().SingleInstance();
-            builder.RegisterAutoMapper(Assembly.GetExecutingAssembly());
+            builder.RegisterAutoMapper(cfg =>
+            {
+                cfg.AddProfile(new MapperProfile());
+            });
         }
     }
 }
