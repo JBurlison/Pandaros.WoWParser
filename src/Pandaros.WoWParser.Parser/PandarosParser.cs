@@ -17,6 +17,7 @@ using Pandaros.WoWParser.Parser.DataAccess;
 using Pandaros.WoWParser.Parser.Repositories;
 using System.Reflection;
 using AutoMapper.Contrib.Autofac.DependencyInjection;
+using AutoMapper;
 
 namespace Pandaros.WoWParser.Parser
 {
@@ -50,7 +51,6 @@ namespace Pandaros.WoWParser.Parser
             services.AddScoped<CombatLogParser>();
             services.AddSingleton<CombatLogCombiner>();
             services.AddSingleton<UserData>();
-            services.AddSingleton<UserRepo>();
             services.AddSingleton<CharacterData>();
             services.AddSingleton<FightsData>();
             services.AddSingleton<GuildsData>();
@@ -58,6 +58,12 @@ namespace Pandaros.WoWParser.Parser
             services.AddSingleton<InstanceData>();
             services.AddSingleton<InstanceInfoData>();
             services.AddSingleton<ServerData>();
+            services.AddSingleton<UserRepo>();
+
+            services.AddAutoMapper(cfg =>
+            {
+                cfg.AddProfile<MapperProfile>();
+            }, Assembly.GetExecutingAssembly());
         }
 
         public static void PandarosParserSetup(this ContainerBuilder builder, IPandaLogger logger, IStatsLogger statsReporter, IMongoClient mongoClient)

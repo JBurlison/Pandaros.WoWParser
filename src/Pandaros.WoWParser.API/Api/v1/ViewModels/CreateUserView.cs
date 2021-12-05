@@ -13,14 +13,11 @@ namespace Pandaros.WoWParser.API.Api.v1.ViewModels
 
         [Required]
         public string EmailAddress { get; set; }
-
         [Required]
         public string Password { get; set; }
-
         [Required]
         public string Timezone { get; set; }
 
-        [Required]
         public bool WebAdmin { get; set; } = false;
     }
 }

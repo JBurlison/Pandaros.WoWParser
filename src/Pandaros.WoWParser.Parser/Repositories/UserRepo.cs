@@ -10,7 +10,7 @@ namespace Pandaros.WoWParser.Parser.Repositories
 {
     public class UserRepo : RepoBase<User, WoWUser, UserData>
     {
-        internal UserRepo(UserData dataAccess, IMapper mapper) : base(dataAccess, mapper)
+        public UserRepo(UserData dataAccess, IMapper mapper) : base(dataAccess, mapper)
         {
         }
     }

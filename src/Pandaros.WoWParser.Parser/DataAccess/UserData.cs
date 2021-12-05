@@ -12,7 +12,7 @@ namespace Pandaros.WoWParser.Parser.DataAccess
         protected override internal string DatabaseName { get; set; } = DatabaseNames.PandarosParser;
         protected override internal string CollectionName { get; set; } = CollectionNames.Users;
 
-        internal UserData(IMongoClient client)
+        public UserData(IMongoClient client)
         {
             Initialize(client);
         }
