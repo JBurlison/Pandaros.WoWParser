@@ -17,16 +17,14 @@ namespace Pandaros.WoWParser.Parser
         IFightMonitorFactory _fightMonitorFactory;
         IPandaLogger _logger;
         IStatsLogger _reporter;
-        IMongoClient _mongoClient;
         public event EventHandler<double> PctComplete;
 
-        public CombatLogParser(IParserFactory parserFactory, IFightMonitorFactory fightMonitorFactory, IPandaLogger logger, IStatsLogger reporter, IMongoClient mongoClient)
+        public CombatLogParser(IParserFactory parserFactory, IFightMonitorFactory fightMonitorFactory, IPandaLogger logger, IStatsLogger reporter)
         {
             _parserFactory = parserFactory;
             _fightMonitorFactory = fightMonitorFactory;
             _logger = logger;
             _reporter = reporter;
-            _mongoClient = mongoClient;
         }
 
         public long ParseToEnd(string filepath)
@@ -43,7 +41,7 @@ namespace Pandaros.WoWParser.Parser
 
             long count = 0;
             ICombatState state = new CombatState(_fightMonitorFactory, _logger);
-            ICombatState allFights = new AllCombatsState(_fightMonitorFactory, _logger, _reporter, _mongoClient);
+            ICombatState allFights = new AllCombatsState(_fightMonitorFactory, _logger, _reporter);
            
             using (FileStream fs = new FileStream(fileToParse.FullName, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
             {

@@ -20,7 +20,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
         IPandaLogger _logger;
         IStatsLogger _reporter;
 
-        public CalculatorFactory(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight, IMongoClient mongoClient)
+        public CalculatorFactory(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight)
         {
             var assem = Assembly.GetExecutingAssembly();
             _logger = logger;
@@ -29,7 +29,8 @@ namespace Pandaros.WoWParser.Parser.Calculators
             Fight = fight;
             var typeArray = assem.GetTypes();
             var builder = new ContainerBuilder();
-            builder.SetupDataProviders(logger, mongoClient);
+            //builder.SetupDataProviders(logger, mongoClient);
+            builder.RegisterInstance(logger).As<IPandaLogger>().SingleInstance();
             builder.RegisterInstance(reporter).As<IStatsLogger>().SingleInstance();
             builder.RegisterInstance(state).As<ICombatState>().SingleInstance();
             builder.RegisterInstance(fight).As<MonitoredFight>().SingleInstance();

@@ -82,7 +82,7 @@ namespace Pandaros.WoWParser.API
             IMongoClient client = new MongoClient(mongoConString);
             var logger = new PandaLogger("./logs/");
             services.AddSingleton<IMongoClient>(client);
-            services.PandarosParserSetup(logger, logger, client);
+            services.PandarosParserSetup(logger, logger);
             services.AddAuthorization();
             services.AddAuthentication(options =>
             {

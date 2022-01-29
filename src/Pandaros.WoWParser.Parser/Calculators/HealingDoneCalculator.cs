@@ -142,7 +142,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
                         effectiveHealingPerperson.AddValue(healed.Key, person.Key, spell.Key, spell.Value);
 
             _statsReporting.Report(_healingDoneByPlayersTotal, "Life Healed Rankings", Fight, State);
-            _statsReporting.Report(effectiveHeal, "Effective Healing Rankings (healed + Shield Absorbs)", Fight, State);
+            _statsReporting.Report(effectiveHeal, "Effective Healing Rankings (healed + Shield Absorbs)", Fight, State, true);
             _statsReporting.Report(_overHealingDoneByPlayersTotal, "Overheal Rankings", Fight, State);
             _statsReporting.Report(_critHeal, "Critical Healed Rankings", Fight, State);
             _statsReporting.Report(_noncritHeal, "Non-Critical Healed Rankings", Fight, State);
@@ -153,7 +153,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
             _statsReporting.Report(_playerHealed, "Most Healed on Players Rankings", Fight, State);
             _statsReporting.Report(_playerOverHealed, "Most Overhealed on Players Rankings", Fight, State);
             _statsReporting.Report(effectiveHealingPerperson, "Most Effective Healing on Players Rankings (Life Healed + Shields)", Fight, State);
-            _statsReporting.Report(totalHealedPerson, "Most Healing Output on Players Rankings (Life Healed + Overheal + Shields)", Fight, State);
+            _statsReporting.Report(totalHealedPerson, "Most Healing Output on Players Rankings (Life Healed + Overheal + Shields)", Fight, State, true);
 
             _statsReporting.ReportPerSecondNumbers(_healingDoneByPlayersTotal, "Life Healed HPS Rankings", Fight, State);
 

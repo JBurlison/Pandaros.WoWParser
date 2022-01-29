@@ -16,6 +16,10 @@ namespace Pandaros.WoWParser.Parser.Parsers
         {
             obj = (SpellMissed)base.Parse(timestamp, eventName, eventData, obj);
             obj.MissType = (MissType)Enum.Parse(typeof(MissType), eventData[Indexes.SPELL_MISSED.MissedType], true);
+
+            if (eventData.Length >= Indexes.SPELL_MISSED.Absorbed)
+               obj.Absorbed = eventData[Indexes.SPELL_MISSED.Absorbed].ToInt();
+
             return obj;
         }
     }

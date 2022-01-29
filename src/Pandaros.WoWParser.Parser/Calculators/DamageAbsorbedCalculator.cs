@@ -18,7 +18,10 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 LogEvents.SPELL_DAMAGE,
                 LogEvents.RANGE_DAMAGE,
                 LogEvents.SWING_DAMAGE,
-                LogEvents.SPELL_PERIODIC_DAMAGE
+                LogEvents.SPELL_PERIODIC_DAMAGE,
+                LogEvents.SWING_MISSED,
+                LogEvents.SPELL_MISSED,
+                LogEvents.SPELL_ABSORBED
             };
         }
 
@@ -27,10 +30,10 @@ namespace Pandaros.WoWParser.Parser.Calculators
             if (combatEvent.DestFlags.FlagType != UnitFlags.UnitFlagType.Player)
                 return;
 
-            var damage = (IDamage)combatEvent;
-
-            if (damage.Absorbed != 0)
+            if (combatEvent is IDamage damage && damage.Absorbed != 0)
                 _damageAbsorbedByPlayersTotal.AddValue(combatEvent.DestName, damage.Absorbed);
+            else if (combatEvent is IMissed missed && missed.Absorbed != 0)
+                _damageAbsorbedByPlayersTotal.AddValue(combatEvent.DestName, missed.Absorbed);
         }
 
         public override void FinalizeFight(ICombatEvent combatEvent)

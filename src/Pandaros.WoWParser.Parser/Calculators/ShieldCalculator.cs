@@ -35,17 +35,24 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 LogEvents.RANGE_DAMAGE,
                 LogEvents.SWING_DAMAGE,
                 LogEvents.SPELL_PERIODIC_DAMAGE,
-                LogEvents.DAMAGE_SHIELD
+                LogEvents.DAMAGE_SHIELD,
+                LogEvents.SPELL_MISSED,
+                LogEvents.SWING_MISSED
             };
         }
 
         public override void CalculateEvent(ICombatEvent combatEvent)
         {
-            var damage = (IDamage)combatEvent;
+            var absorbed = 0;
+
+            if (combatEvent is IDamage damage && damage.Absorbed != 0)
+                absorbed = damage.Absorbed;
+            else if (combatEvent is IMissed missed && missed.Absorbed != 0)
+                absorbed = missed.Absorbed;
 
             if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Npc && 
                 combatEvent.DestFlags.FlagType == UnitFlags.UnitFlagType.Player &&
-                damage.Absorbed > 0 && 
+                absorbed > 0 && 
                 State.PlayerBuffs.TryGetValue(combatEvent.DestName, out var buffs))
             {
                 Dictionary<string, string> sheilds = new Dictionary<string, string>();
@@ -59,7 +66,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
 
                 if (sheilds.Count != 0)
                 {
-                    float dmg = damage.Absorbed / sheilds.Count;
+                    float dmg = absorbed / sheilds.Count;
                     var resolved = Convert.ToInt32(Math.Round(dmg));
 
                     foreach (var s in sheilds)

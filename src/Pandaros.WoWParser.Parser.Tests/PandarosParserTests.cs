@@ -18,7 +18,7 @@ namespace Pandaros.WoWParser.Tests
         {
             var builder = new ContainerBuilder();
             var logger = new PandaLogger("C:/temp/");
-            builder.PandarosParserSetup(logger, logger, new MongoDB.Driver.MongoClient());
+            builder.PandarosParserSetup(logger, logger);
 
             var Container = builder.Build();
 

@@ -7,5 +7,6 @@ namespace Pandaros.WoWParser.Parser.Models
     public class SpellMissed : SpellBase, IMissed
     {
         public MissType MissType { get; set; }
+        public int Absorbed { get; set; }
     }
 }

@@ -72,6 +72,7 @@ namespace Pandaros.WoWParser.Parser.Indexes
     public class SPELL_MISSED
     {
         public const int MissedType = 9;
+        public const int Absorbed = 10;
     }
 
     public class SPELL_DAMAGE
@@ -154,6 +155,7 @@ namespace Pandaros.WoWParser.Parser.Indexes
     public class SWING_MISSED
     {
         public const int MissedReason = 6;
+        public const int Absorbed = 7;
     }
 
     public class ENVIRONMENTAL_DAMAGE

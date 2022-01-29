@@ -16,10 +16,10 @@ namespace Pandaros.WoWParser.Parser
             BossName = "All Fights in Log"
         };
 
-        public AllCombatsState(IFightMonitorFactory fightMonitorFactory, IPandaLogger logger, IStatsLogger reporter, IMongoClient mongoClient) : base(fightMonitorFactory, logger)
+        public AllCombatsState(IFightMonitorFactory fightMonitorFactory, IPandaLogger logger, IStatsLogger reporter) : base(fightMonitorFactory, logger)
         {
             CurrentFight = _allFights;
-            CalculatorFactory = new CalculatorFactory(logger, reporter, this, _allFights, mongoClient);
+            CalculatorFactory = new CalculatorFactory(logger, reporter, this, _allFights);
             CalculatorFactory.StartFight(new CombatEventBase());
         }
 

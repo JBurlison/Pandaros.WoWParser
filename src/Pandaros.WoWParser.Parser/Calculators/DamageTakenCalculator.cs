@@ -31,9 +31,9 @@ namespace Pandaros.WoWParser.Parser.Calculators
             {
 
                 if (combatEvent.EventName == LogEvents.SPELL_DAMAGE ||
-                    combatEvent.EventName == LogEvents.SPELL_DAMAGE ||
-                    combatEvent.EventName == LogEvents.SPELL_DAMAGE ||
-                    combatEvent.EventName == LogEvents.SPELL_DAMAGE)
+                    combatEvent.EventName == LogEvents.RANGE_DAMAGE ||
+                    combatEvent.EventName == LogEvents.SPELL_PERIODIC_DAMAGE ||
+                    combatEvent.EventName == LogEvents.DAMAGE_SHIELD)
                 {
                     var spell = (ISpell)combatEvent;
                     _damageTakenByEntityFromEntity.AddValue(combatEvent.DestName, combatEvent.SourceName, spell.SpellName, 0, 1);

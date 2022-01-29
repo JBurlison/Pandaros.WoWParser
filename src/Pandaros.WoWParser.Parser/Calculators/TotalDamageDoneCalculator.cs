@@ -77,7 +77,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
                     critChance[crit.Key] = Convert.ToInt32(Math.Round(((double)crit.Value / (double)castCount) * 100));
                 }
 
-            _statsReporting.Report(_damageDoneByPlayersTotal, "Damage Rankings", Fight, State);
+            _statsReporting.Report(_damageDoneByPlayersTotal, "Damage Rankings", Fight, State, true);
             _statsReporting.Report(_playerOwnedDamage, "Player Owned Damage Rankings", Fight, State);
             _statsReporting.Report(_critDamage, "Crit Damage Rankings", Fight, State);
             _statsReporting.Report(_noncritDamage, "Non Crit Damage Rankings", Fight, State);
