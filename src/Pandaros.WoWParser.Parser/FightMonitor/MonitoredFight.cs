@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Pandaros.WoWParser.Parser.FightMonitor
 {
-    public class MonitoredFight
+    public class MonitoredFight : IDisposable
     {
         public Guid Id { get; } = Guid.NewGuid();
         public string BossName { get; set; }
@@ -13,13 +13,27 @@ namespace Pandaros.WoWParser.Parser.FightMonitor
         public DateTime FightStart { get; set; }
         public DateTime FightEnd { get; set; }
         public List<ICombatEvent> MonitoredFightEvents { get; set; } = new List<ICombatEvent>();
+        public Dictionary<string, List<ICombatEvent>> PlayerCombatEvents { get; set; } = new Dictionary<string, List<ICombatEvent>>();
         ICombatEvent _lastKnownLog;
+        private bool _disposedValue;
+
         public List<Guid> ChildIds { get; set; } = new List<Guid>();
         public Guid ParentId { get; set; }
 
         public bool AddEvent(ICombatEvent combatEvent, ICombatState state)
         {
             MonitoredFightEvents.Add(combatEvent);
+
+            if (combatEvent.DestFlags.IsPlayer)
+            {
+                if (!PlayerCombatEvents.TryGetValue(combatEvent.DestName, out var events))
+                {
+                    events = new List<ICombatEvent>();
+                    PlayerCombatEvents[combatEvent.DestName] = events;
+                }
+
+                events.Add(combatEvent);
+            }
 
             if (FightMonitorFactory.CombatEventsTriggerInFight.Contains(combatEvent.EventName))
             {
@@ -91,6 +105,29 @@ namespace Pandaros.WoWParser.Parser.FightMonitor
             }
 
             return true;
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+                    
+                }
+
+                MonsterID = null;
+                MonitoredFightEvents = null;
+                PlayerCombatEvents = null;
+                ChildIds = null;
+                _disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
         }
     }
 }

@@ -9,9 +9,10 @@ namespace Pandaros.WoWParser.Parser
     {
         internal IFightMonitorFactory _fightMonitorFactory;
         internal IPandaLogger _logger;
-        internal Dictionary<string, int> unknown = new Dictionary<string, int>();
-        internal Dictionary<string, int> eventCount = new Dictionary<string, int>();
+        internal Dictionary<string, int> _unknown = new Dictionary<string, int>();
+        internal Dictionary<string, int> _eventCount = new Dictionary<string, int>();
         internal bool _prevFightState = false;
+        private bool _disposedValue;
 
         public Dictionary<string, List<string>> OwnerToEntityMap { get; set; } = new Dictionary<string, List<string>>();
 
@@ -33,15 +34,15 @@ namespace Pandaros.WoWParser.Parser
         public virtual void ParseComplete()
         {
             _logger.Log($"``````````````````````````````````````````````````````````````");
-            _logger.Log($"Number of unknown events: {unknown.Count}");
+            _logger.Log($"Number of unknown events: {_unknown.Count}");
             _logger.Log($"--------------------------------------------------------------");
-            foreach (var ev in unknown)
+            foreach (var ev in _unknown)
                 _logger.Log($"{ev.Key}: {ev.Value}");
             _logger.Log($"``````````````````````````````````````````````````````````````");
 
-            _logger.Log($"Number of known events: {eventCount.Count}");
+            _logger.Log($"Number of known events: {_eventCount.Count}");
             _logger.Log($"--------------------------------------------------------------");
-            foreach (var ev in eventCount)
+            foreach (var ev in _eventCount)
                 _logger.Log($"{ev.Key}: {ev.Value}");
             _logger.Log($"``````````````````````````````````````````````````````````````");
         }
@@ -51,11 +52,11 @@ namespace Pandaros.WoWParser.Parser
             if (combatEvent == null)
             {
                 if (!string.IsNullOrEmpty(evtStr))
-                    unknown.AddValue(evtStr, 1);
+                    _unknown.AddValue(evtStr, 1);
             }
             else
             {
-                eventCount.AddValue(combatEvent.EventName, 1);
+                _eventCount.AddValue(combatEvent.EventName, 1);
             }
         }
 
@@ -126,6 +127,32 @@ namespace Pandaros.WoWParser.Parser
                     break;
             }
 
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_disposedValue)
+            {
+                if (disposing)
+                {
+
+                }
+
+                _unknown = null;
+                _eventCount = null;
+                OwnerToEntityMap = null;
+                EntitytoOwnerMap = null;
+                PlayerBuffs = null;
+                PlayerDebuffs = null;
+                CurrentFight.Dispose();
+                _disposedValue = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+            Dispose(disposing: true);
         }
     }
 }

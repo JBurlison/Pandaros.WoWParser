@@ -7,6 +7,7 @@ namespace Pandaros.WoWParser.Parser
 {
     public interface IStatsLogger
     {
+        public void Output(string message);
         public void ReportPerSecondNumbers<T>(Dictionary<T, long> stats, string name, MonitoredFight fight, ICombatState state, bool important = false);
         public void Report<T>(Dictionary<T, long> stats, string name, MonitoredFight fight, ICombatState state, bool important = false);
         public void Report<T, G>(Dictionary<T, Dictionary<G, long>> stats, string name, MonitoredFight fight, ICombatState state, bool important = false);

@@ -15,5 +15,29 @@ namespace Pandaros.WoWParser.Parser.Models
         public string DestName { get; set; }
         public UnitFlags DestFlags { get; set; }
         public string[] EventParameters { get; set; }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append(Timestamp.ToString("M/dd HH:mm:ss.fff"));
+            sb.Append(" ");
+            sb.Append(EventName);
+            sb.Append(",");
+            sb.Append(SourceGuid);
+            sb.Append(",");
+            sb.Append(SourceName);
+            sb.Append(",");
+            sb.Append(SourceFlags.Value.ToString("X"));
+            sb.Append(",");
+            sb.Append(DestGuid);
+            sb.Append(",");
+            sb.Append(DestName);
+            sb.Append(",");
+            sb.Append(DestFlags.Value.ToString("X"));
+            sb.Append(",");
+            sb.Append(string.Join(',', EventParameters));
+
+            return sb.ToString();
+        }
     }
 }

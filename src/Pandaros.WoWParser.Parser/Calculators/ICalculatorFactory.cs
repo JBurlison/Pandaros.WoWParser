@@ -6,7 +6,7 @@ using Pandaros.WoWParser.Parser.Models;
 
 namespace Pandaros.WoWParser.Parser.Calculators
 {
-    public interface ICalculatorFactory
+    public interface ICalculatorFactory : IDisposable
     {
         public Dictionary<string, List<ICalculator>> Calculators { get; set; }
         public ICombatState State { get; set; }

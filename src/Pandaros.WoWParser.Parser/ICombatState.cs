@@ -1,11 +1,12 @@
 ﻿using Pandaros.WoWParser.Parser.Calculators;
 using Pandaros.WoWParser.Parser.FightMonitor;
 using Pandaros.WoWParser.Parser.Models;
+using System;
 using System.Collections.Generic;
 
 namespace Pandaros.WoWParser.Parser
 {
-    public interface ICombatState
+    public interface ICombatState : IDisposable
     {
         CalculatorFactory CalculatorFactory { get; set; }
         MonitoredFight CurrentFight { get; set; }

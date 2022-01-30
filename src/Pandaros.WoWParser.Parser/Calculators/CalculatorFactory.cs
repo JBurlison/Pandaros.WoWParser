@@ -14,6 +14,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
     {
         public Dictionary<string, List<ICalculator>> Calculators { get; set; } = new Dictionary<string, List<ICalculator>>();
         public List<ICalculator> CalculatorFlatList { get; set; } = new List<ICalculator>();
+
         public ICombatState State { get; set; }
         public MonitoredFight Fight { get; set; }
         Dictionary<string, int> _eventCount = new Dictionary<string, int>();
@@ -82,7 +83,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
         {
             _eventCount.Clear();
             _logger.Log("---------------------------------------------");
-            _logger.Log($"{Fight.FightStart.ToLocalTime()} Fight Start: {Fight.BossName}");
+            _reporter.Output($"{Fight.FightStart.ToLocalTime()} Fight Start: {Fight.BossName}");
             _logger.Log("---------------------------------------------");
             foreach (var calc in CalculatorFlatList)
                 calc.StartFight(combatEvent);
@@ -94,10 +95,24 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 calc.FinalizeFight(combatEvent);
 
             _logger.Log("---------------------------------------------");
-            _logger.Log($"{Fight.FightEnd.ToLocalTime()} Fight End: {Fight.BossName} ({Fight.FightEnd.Subtract(Fight.FightStart)})");
+            _reporter.Output($"{Fight.FightEnd.ToLocalTime()} Fight End: {Fight.BossName} ({Fight.FightEnd.Subtract(Fight.FightStart)})");
             foreach (var ev in _eventCount)
                 _logger.Log($"{ev.Key}: {ev.Value}");
             _logger.Log("---------------------------------------------");
+        }
+        private bool _disposed = false;
+
+        public void Dispose()
+        {
+            if (!_disposed)
+            {
+                _disposed = true;
+                Calculators = null;
+                CalculatorFlatList = null;
+                _eventCount = null;
+                Fight.Dispose();
+                State.Dispose();
+            }
         }
     }
 }

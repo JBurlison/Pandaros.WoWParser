@@ -395,6 +395,11 @@ namespace Pandaros.WoWParser.Parser
                 Log(sb.ToString());
             }
         }
+
+        public void Output(string message)
+        {
+            Log(message);
+        }
     }
 }
 
