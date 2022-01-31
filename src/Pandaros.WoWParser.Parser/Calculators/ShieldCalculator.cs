@@ -15,7 +15,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
         {
             "Ardent Defender",
             "Divine Aegis",
-            "Mana Sheld",
+            "Mana Shield",
             "Fire Ward",
             "Frost Ward",
             "Sacred Shield",

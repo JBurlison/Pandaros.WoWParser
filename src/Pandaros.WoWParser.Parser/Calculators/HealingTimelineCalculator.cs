@@ -46,21 +46,21 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 damage.Absorbed > 0 &&
                 State.PlayerBuffs.TryGetValue(combatEvent.DestName, out var buffs))
             {
-                Dictionary<string, string> sheilds = new Dictionary<string, string>();
+                Dictionary<string, string> Shields = new Dictionary<string, string>();
                 foreach (var shield in ShieldCalculator._shieldNames)
                 {
                     if (buffs.TryGetValue(shield, out var caster))
                     {
-                        sheilds[shield] = caster;
+                        Shields[shield] = caster;
                     }
                 }
 
-                if (sheilds.Count != 0)
+                if (Shields.Count != 0)
                 {
-                    float dmg = damage.Absorbed / sheilds.Count;
+                    float dmg = damage.Absorbed / Shields.Count;
                     var resolved = Convert.ToInt32(Math.Round(dmg));
 
-                    foreach (var s in sheilds)
+                    foreach (var s in Shields)
                     {
                         AddEvent(s.Value, combatEvent.Timestamp, s.Key, resolved);
                     }
