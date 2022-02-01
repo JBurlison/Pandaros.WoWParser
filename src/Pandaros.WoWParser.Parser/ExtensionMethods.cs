@@ -64,6 +64,19 @@ namespace Pandaros.WoWParser.Parser
             return (long)((dt.Ticks - DatetimeMinTimeTicks) / 10000);
         }
 
+        public static void SubtractValue<T>(this Dictionary<T, long> dic, T key, long value)
+        {
+            if (dic.TryGetValue(key, out long existingVal))
+            {
+                dic[key] = existingVal - value;
+            }
+            else
+            {
+                dic[key] = value;
+            }
+        }
+
+
         public static void AddValue<T>(this Dictionary<T, long> dic, T key, long value)
         {
             if (dic.TryGetValue(key, out long existingVal))

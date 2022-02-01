@@ -83,7 +83,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
         {
             _eventCount.Clear();
             _logger.Log("---------------------------------------------");
-            _reporter.Output($"```\nFight Start: {Fight.BossName}\n```");
+            _logger.Log($"```\nFight Start: {Fight.BossName}\n```");
             _logger.Log("---------------------------------------------");
             foreach (var calc in CalculatorFlatList)
                 calc.StartFight(combatEvent);
@@ -95,7 +95,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 calc.FinalizeFight(combatEvent);
 
             _logger.Log("---------------------------------------------");
-            _reporter.Output($"```\nFight End: {Fight.BossName} ({Fight.FightEnd.Subtract(Fight.FightStart)})\n```");
+            _logger.Log($"```\nFight End: {Fight.BossName} ({Fight.FightEnd.Subtract(Fight.FightStart)})\n```");
             foreach (var ev in _eventCount)
                 _logger.Log($"{ev.Key}: {ev.Value}");
             _logger.Log("---------------------------------------------");

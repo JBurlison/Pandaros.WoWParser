@@ -55,21 +55,21 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 absorbed > 0 && 
                 State.PlayerBuffs.TryGetValue(combatEvent.DestName, out var buffs))
             {
-                Dictionary<string, string> sheilds = new Dictionary<string, string>();
+                Dictionary<string, string> Shields = new Dictionary<string, string>();
                 foreach (var shield in _shieldNames)
                 {
                     if (buffs.TryGetValue(shield, out var caster))
                     {
-                        sheilds[shield] = caster;
+                        Shields[shield] = caster;
                     }
                 }
 
-                if (sheilds.Count != 0)
+                if (Shields.Count != 0)
                 {
-                    float dmg = absorbed / sheilds.Count;
+                    float dmg = absorbed / Shields.Count;
                     var resolved = Convert.ToInt32(Math.Round(dmg));
 
-                    foreach (var s in sheilds)
+                    foreach (var s in Shields)
                     {
                         _shieldGivenDoneByPlayersTotal.AddValue(s.Value, s.Key, resolved);
                         _playerSHieldedTotal.AddValue(s.Value, combatEvent.DestName, s.Key, resolved);
@@ -81,7 +81,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
         public override void FinalizeFight(ICombatEvent combatEvent)
         {
             _statsReporting.Report(_shieldGivenDoneByPlayersTotal, "Damage Prevented with Shields (absorb) by caster", Fight, State);
-            _statsReporting.Report(_playerSHieldedTotal, "Sheilds cast on players", Fight, State);
+            _statsReporting.Report(_playerSHieldedTotal, "Shields cast on players", Fight, State);
         }
 
         public override void StartFight(ICombatEvent combatEvent)

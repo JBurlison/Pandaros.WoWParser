@@ -74,7 +74,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
 
             if (State.TryGetSourceOwnerName(combatEvent, out var owner))
             {
-                _healingDoneByPlayersTotal.AddValue(owner, healingEvent.HealAmount - healingEvent.Overhealing);
+                _healingDoneByPlayersTotal.AddValue(owner, healingEvent.HealAmount);
                 _overHealingDoneByPlayersTotal.AddValue(owner, healingEvent.Overhealing);
                 _playerOwnedHealing.AddValue(owner, combatEvent.SourceName, healingEvent.HealAmount);
                 _playerOwnedOverheaing.AddValue(owner, combatEvent.SourceName, healingEvent.Overhealing);
@@ -99,6 +99,8 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 effectiveHeal.AddValue(kvp.Key, kvp.Value);
             }
 
+            foreach (var kvp in _overHealingDoneByPlayersTotal)
+                effectiveHeal.SubtractValue(kvp.Key, kvp.Value);
 
             foreach (var kvp in shieldCalculator._shieldGivenDoneByPlayersTotal)
                 foreach (var v in kvp.Value)
@@ -155,8 +157,8 @@ namespace Pandaros.WoWParser.Parser.Calculators
             _statsReporting.ReportPerSecondNumbers(_healingDoneByPlayersTotal, "Life Healed HPS Rankings", Fight, State);
 
             _statsReporting.Report(totalLife, "Healing Output Rankings (Life Healed + Overheal + Shields)", Fight, State);
-            _statsReporting.ReportPerSecondNumbers(totalLife, "HPS Rankings (Life Healed + Overheal + Shields)", Fight, State, true);
-            _statsReporting.ReportPerSecondNumbers(effectiveHeal, "Effective HPS Rankings (Life Healed + Shields)", Fight, State, true);
+            _statsReporting.ReportPerSecondNumbers(totalLife, "HPS Rankings", Fight, State, true);
+            _statsReporting.ReportPerSecondNumbers(effectiveHeal, "Effective HPS Rankings (Life Healed + Shields)", Fight, State);
         }
 
         public override void StartFight(ICombatEvent combatEvent)
