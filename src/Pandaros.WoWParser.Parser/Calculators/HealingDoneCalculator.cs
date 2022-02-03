@@ -45,7 +45,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
 
                 if (combatEvent.DestFlags.IsPlayer)
                 {
-                    _playerHealed.AddValue(combatEvent.SourceName, combatEvent.DestName, spell.SpellName, healingEvent.HealAmount - healingEvent.Overhealing);
+                    _playerHealed.AddValue(combatEvent.SourceName, combatEvent.DestName, spell.SpellName, healingEvent.HealAmount);
                     _playerOverHealed.AddValue(combatEvent.SourceName, combatEvent.DestName, spell.SpellName, healingEvent.Overhealing);
                 }
 
@@ -80,7 +80,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 _playerOwnedOverheaing.AddValue(owner, combatEvent.SourceName, healingEvent.Overhealing);
             }
 
-      
+
         }
 
         public override void FinalizeFight(ICombatEvent combatEvent)
@@ -100,7 +100,8 @@ namespace Pandaros.WoWParser.Parser.Calculators
             }
 
             foreach (var kvp in _overHealingDoneByPlayersTotal)
-                effectiveHeal.SubtractValue(kvp.Key, kvp.Value);
+                totalLife.AddValue(kvp.Key, kvp.Value);
+
 
             foreach (var kvp in shieldCalculator._shieldGivenDoneByPlayersTotal)
                 foreach (var v in kvp.Value)
