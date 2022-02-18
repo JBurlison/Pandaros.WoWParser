@@ -64,14 +64,15 @@ namespace Pandaros.WoWParser.Parser
     public class PandaLogger : IPandaLogger
     {
         public readonly string LOG_DIR;
-        string LOG_NAME;
+        string _lOG_NAME;
         const string ONE_DOT_LOG = ".1.log";
         const string DOT_STAR_DOT_LOG = ".*.log";
         const string DOT_LOG = ".log";
-        static readonly char[] dot = new char[] { '.' };
+        static readonly char[] _dot = new char[] { '.' };
         const int LOGGER_TRY = 1000;
-        public string _logFile;
-
+        public string LogFile { get; set; }
+        object _lockObj = new object();
+        FileStream _stream;
         public PandaLogger(string logDir)
         {
             LOG_DIR = logDir;
@@ -82,9 +83,10 @@ namespace Pandaros.WoWParser.Parser
             if (!Directory.Exists(LOG_DIR))
                 Directory.CreateDirectory(LOG_DIR);
 
-            LOG_NAME = "PandarosLogParser." + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss");
+            _lOG_NAME = "PandarosLogParser." + DateTime.Now.ToString("yyyy-dd-M--HH-mm-ss");
 
-            _logFile = LOG_DIR + LOG_NAME + DOT_LOG;
+            LogFile = LOG_DIR + _lOG_NAME + DOT_LOG;
+            _stream = new FileStream(LogFile, FileMode.OpenOrCreate);
         }
 
         public void Log(string message, params object[] args)
@@ -127,39 +129,51 @@ namespace Pandaros.WoWParser.Parser
 
         private void LogInternal(params string[] message)
         {
-            File.AppendAllLines(_logFile, message);
-
-            //RotateLogs();
+            lock (_lockObj)
+            {
+                foreach (string s in message)
+                {
+                    var data = ASCIIEncoding.UTF8.GetBytes(s + '\n');
+                    _stream.Write(data, 0, data.Length);
+                }
+                
+                _stream.Flush();
+                RotateLogs();
+            }
         }
 
         private void RotateLogs()
         {
-            if (!File.Exists(_logFile)) return;
+            if (!File.Exists(LogFile)) return;
 
             foreach (var fi in new DirectoryInfo(LOG_DIR).GetFiles().OrderByDescending(x => x.LastWriteTime).Skip(20))
                 fi.Delete();
 
-            FileInfo fix = new FileInfo(_logFile);
+            FileInfo fix = new FileInfo(LogFile);
             long fixedSize = fix.Length / 1024L;
-            if (fixedSize >= 1024)
+            if (fixedSize >= 1024L * 1024L * 100)
             {
-                string oldFilename = LOG_DIR + LOG_NAME + ONE_DOT_LOG;
+                _stream.Close();
+                _stream.Dispose();
+                string oldFilename = LOG_DIR + _lOG_NAME + ONE_DOT_LOG;
                 if (File.Exists(oldFilename))
                 {
                     RotateOld(LOG_DIR);
                 }
                 int j = 0;
-                while (!LoggerCheck(_logFile, oldFilename, FileAction.Move))
+                while (!LoggerCheck(LogFile, oldFilename, FileAction.Move))
                 {
                     j++;
                     if (j > LOGGER_TRY) break;
                 }
+
+                _stream = new FileStream(LogFile, FileMode.OpenOrCreate);
             }
         }
 
         private void RotateOld(string logFileDir)
         {
-            string[] raw = Directory.GetFiles(logFileDir, LOG_NAME + DOT_STAR_DOT_LOG);
+            string[] raw = Directory.GetFiles(logFileDir, _lOG_NAME + DOT_STAR_DOT_LOG);
             ArrayList files = new ArrayList();
             files.AddRange(raw);
 
@@ -172,7 +186,7 @@ namespace Pandaros.WoWParser.Parser
                 int logfnum = GetNumFromFilename(f);
                 if (logfnum > 0)
                 {
-                    string newname = string.Format("{0}{1}.{2}.log", LOG_DIR, LOG_NAME, logfnum + 1);
+                    string newname = string.Format("{0}{1}.{2}.log", LOG_DIR, _lOG_NAME, logfnum + 1);
 
                     if (logfnum >= 5)
                     {
@@ -236,7 +250,7 @@ namespace Pandaros.WoWParser.Parser
             int filenum = 0;
             if (!string.IsNullOrEmpty(filename))
             {
-                string[] xtokens = filename.Split(dot);
+                string[] xtokens = filename.Split(_dot);
                 int xtokencount = xtokens.GetLength(0);
                 if (xtokencount > 2)
                 {

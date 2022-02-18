@@ -41,6 +41,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
             if (combatEvent.SourceFlags.FlagType == UnitFlags.UnitFlagType.Player)
             {
                 _healingDoneByPlayersTotal.AddValue(combatEvent.SourceName, healingEvent.HealAmount);
+                _healingDoneByPlayersTotal.AddValue(combatEvent.SourceName, healingEvent.Absorbed);
                 _overHealingDoneByPlayersTotal.AddValue(combatEvent.SourceName, healingEvent.Overhealing);
 
                 if (combatEvent.DestFlags.IsPlayer)
@@ -75,6 +76,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
             if (State.TryGetSourceOwnerName(combatEvent, out var owner))
             {
                 _healingDoneByPlayersTotal.AddValue(owner, healingEvent.HealAmount);
+                _healingDoneByPlayersTotal.AddValue(owner, healingEvent.Absorbed);
                 _overHealingDoneByPlayersTotal.AddValue(owner, healingEvent.Overhealing);
                 _playerOwnedHealing.AddValue(owner, combatEvent.SourceName, healingEvent.HealAmount);
                 _playerOwnedOverheaing.AddValue(owner, combatEvent.SourceName, healingEvent.Overhealing);
@@ -158,8 +160,8 @@ namespace Pandaros.WoWParser.Parser.Calculators
             _statsReporting.ReportPerSecondNumbers(_healingDoneByPlayersTotal, "Life Healed HPS Rankings", Fight, State);
 
             _statsReporting.Report(totalLife, "Healing Output Rankings (Life Healed + Overheal + Shields)", Fight, State);
-            _statsReporting.ReportPerSecondNumbers(totalLife, "HPS Rankings", Fight, State, true);
-            _statsReporting.ReportPerSecondNumbers(effectiveHeal, "Effective HPS Rankings (Life Healed + Shields)", Fight, State);
+            _statsReporting.ReportPerSecondNumbers(totalLife, "Total HPS Rankings (Life Healed + Overheal + Shields)", Fight, State);
+            _statsReporting.ReportPerSecondNumbers(effectiveHeal, "Effective HPS Rankings (Life Healed + Shields)", Fight, State, true);
         }
 
         public override void StartFight(ICombatEvent combatEvent)
