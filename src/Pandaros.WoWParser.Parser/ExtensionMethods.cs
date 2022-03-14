@@ -191,15 +191,22 @@ namespace Pandaros.WoWParser.Parser
             }
         }
 
-        public static void AddValue<T, G>(this Dictionary<T, Dictionary<G, string>> dic, T key, G key2, string value)
+        public static bool AddValue<T, G>(this Dictionary<T, Dictionary<G, string>> dic, T key, G key2, string value)
         {
+            bool added = false;
             if (!dic.TryGetValue(key, out Dictionary<G, string> dic2))
             {
                 dic2 = new Dictionary<G, string>();
                 dic.Add(key, dic2);
+                added = true;
             }
 
+            if (!added)
+                added = dic2.ContainsKey(key2);
+
             dic2[key2] = value;
+
+            return added;
         }
 
         public static void RemoveValue<T, G>(this Dictionary<T, Dictionary<G, string>> dic, T key, G key2)

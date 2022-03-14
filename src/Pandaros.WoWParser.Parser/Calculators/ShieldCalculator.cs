@@ -25,6 +25,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
             "Unfair Advantage",
             "Into Darkness",
             "Power Word: Shield",
+            "Tidal Shield"
         };
 
         public ShieldCalculator(IPandaLogger logger, IStatsLogger reporter, ICombatState state, MonitoredFight fight) : base(logger, reporter, state, fight)
@@ -55,25 +56,23 @@ namespace Pandaros.WoWParser.Parser.Calculators
                 absorbed > 0 && 
                 State.PlayerBuffs.TryGetValue(combatEvent.DestName, out var buffs))
             {
-                Dictionary<string, string> Shields = new Dictionary<string, string>();
+                string activeShield = String.Empty;
+                string sheildCaster = String.Empty;
                 foreach (var shield in _shieldNames)
                 {
                     if (buffs.TryGetValue(shield, out var caster))
                     {
-                        Shields[shield] = caster;
+                        activeShield = shield;
+                        sheildCaster = caster;
+                        break;
                     }
                 }
 
-                if (Shields.Count != 0)
+                if (!string.IsNullOrEmpty(activeShield))
                 {
-                    float dmg = absorbed / Shields.Count;
-                    var resolved = Convert.ToInt32(Math.Round(dmg));
-
-                    foreach (var s in Shields)
-                    {
-                        _shieldGivenDoneByPlayersTotal.AddValue(s.Value, s.Key, resolved);
-                        _playerSHieldedTotal.AddValue(s.Value, combatEvent.DestName, s.Key, resolved);
-                    }
+                    _shieldGivenDoneByPlayersTotal.AddValue(sheildCaster, activeShield, absorbed);
+                    _playerSHieldedTotal.AddValue(sheildCaster, combatEvent.DestName, activeShield, absorbed);
+           
                 }
             }
         }
@@ -82,6 +81,19 @@ namespace Pandaros.WoWParser.Parser.Calculators
         {
             _statsReporting.Report(_shieldGivenDoneByPlayersTotal, "Damage Prevented with Shields (absorb) by caster", Fight, State);
             _statsReporting.Report(_playerSHieldedTotal, "Shields cast on players", Fight, State);
+
+            Dictionary<string, Dictionary<string, long>> avgShield = new Dictionary<string, Dictionary<string, long>>();
+
+            foreach (var p in _shieldGivenDoneByPlayersTotal)
+                foreach (var s in p.Value)
+                {
+                    if (State.PlayerBuffCounts.TryGetValue(p.Key, out var dic2) && dic2.TryGetValue(s.Key, out var castCount))
+                    {
+                        avgShield.AddValue(p.Key, s.Key, s.Value / castCount);
+                    }
+                }
+
+            _statsReporting.Report(avgShield, "Average Shield", Fight, State);
         }
 
         public override void StartFight(ICombatEvent combatEvent)

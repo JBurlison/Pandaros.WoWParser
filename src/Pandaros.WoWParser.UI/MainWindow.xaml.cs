@@ -83,13 +83,13 @@ namespace Pandaros.WoWLogParser.UI
                 if (File.Exists(@"C:\Users\Jim\AppData\Local\Programs\Microsoft VS Code\Code.exe"))
                 {
                     myProcess.StartInfo.FileName = @"C:\Users\Jim\AppData\Local\Programs\Microsoft VS Code\Code.exe"; //not the full application path
-                    myProcess.StartInfo.Arguments = logger._logFile;
+                    myProcess.StartInfo.Arguments = logger.LogFile;
                     myProcess.Start();
                 }
                 else
                 {
                     myProcess.StartInfo.FileName = @"notepad.exe"; //not the full application path
-                    myProcess.StartInfo.Arguments = logger._logFile;
+                    myProcess.StartInfo.Arguments = logger.LogFile;
                     myProcess.Start();
                 }
             }

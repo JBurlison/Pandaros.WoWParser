@@ -59,12 +59,16 @@ namespace Pandaros.WoWParser.Parser.FightMonitor
                         MonsterID = new Dictionary<string, bool>() { { npcId, false } }
                     };
                     state.CalculatorFactory = new CalculatorFactory(_logger, _reporter, state, state.CurrentFight);
+                    state.StartNewCombat();
                 }
             }
 
             if (state.InFight)
             {
                 state.InFight = state.CurrentFight.AddEvent(evnt, state);
+
+                if (!state.InFight)
+                    state.EndCombat();
             }
 
             return state.InFight;

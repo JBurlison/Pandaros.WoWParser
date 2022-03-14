@@ -18,8 +18,19 @@ namespace Pandaros.WoWParser.Parser
 
         public Dictionary<string, string> EntitytoOwnerMap { get; set; } = new Dictionary<string, string>();
 
+        /// <summary>
+        ///     Module, Player, Buffname
+        /// </summary>
         public Dictionary<string, Dictionary<string, string>> PlayerBuffs { get; set; } = new Dictionary<string, Dictionary<string, string>>();
+
+        /// <summary>
+        ///     Module, Player, Debuffname
+        /// </summary>
         public Dictionary<string, Dictionary<string, string>> PlayerDebuffs { get; set; } = new Dictionary<string, Dictionary<string, string>>();
+        /// <summary>
+        ///     Dest, Buffname, Count
+        /// </summary>
+        public  Dictionary<string, Dictionary<string, long>> PlayerBuffCounts { get; set; } = new Dictionary<string, Dictionary<string, long>>();
 
         public bool InFight { get; set; }
         public MonitoredFight CurrentFight { get; set; }
@@ -29,6 +40,16 @@ namespace Pandaros.WoWParser.Parser
         {
             _fightMonitorFactory = fightMonitorFactory;
             _logger = logger;
+        }
+
+        public virtual void StartNewCombat()
+        {
+
+        }
+
+        public virtual void EndCombat()
+        {
+            PlayerBuffCounts = new Dictionary<string, Dictionary<string, long>>();
         }
 
         public virtual void ParseComplete()
@@ -112,7 +133,10 @@ namespace Pandaros.WoWParser.Parser
                     var aura = (ISpellAura)combatEvent;
 
                     if (aura.AuraType == BuffType.Buff)
+                    {
+                        PlayerBuffCounts.AddValue(combatEvent.DestName, spell.SpellName, 1);
                         PlayerBuffs.AddValue(combatEvent.DestName, spell.SpellName, combatEvent.SourceName);
+                    }
                     else
                         PlayerDebuffs.AddValue(combatEvent.DestName, spell.SpellName, combatEvent.SourceName);
                     break;
