@@ -10,6 +10,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
     public class AvoidanceCalculator : BaseCalculator
     {
         Dictionary<string, Dictionary<MissType, long>> _damageAvoidedByEntityfromType = new Dictionary<string, Dictionary<MissType, long>>();
+        Dictionary<string, Dictionary<MissType, Dictionary<string, long>>> _damageAvoidedByEntityfromTypeByattack = new Dictionary<string, Dictionary<MissType, Dictionary<string, long>>>();
         Dictionary<string, long> _attacks = new Dictionary<string, long>();
         Dictionary<string, Dictionary<string, Dictionary<MissType, long>>> _attackAvoidedByEntityFromEntity = new Dictionary<string, Dictionary<string, Dictionary<MissType, long>>>(); 
 
@@ -46,6 +47,11 @@ namespace Pandaros.WoWParser.Parser.Calculators
                         {
                             _damageAvoidedByEntityfromType.AddValue(combatEvent.DestName, spellMissed.MissType, 1);
                             _attackAvoidedByEntityFromEntity.AddValue(combatEvent.DestName, combatEvent.SourceName, spellMissed.MissType, 1);
+
+                            if (combatEvent is SwingBase swing)
+                                _damageAvoidedByEntityfromTypeByattack.AddValue(combatEvent.DestName, spellMissed.MissType, "swing", 1);
+                            else if (combatEvent is SpellBase spell)
+                                _damageAvoidedByEntityfromTypeByattack.AddValue(combatEvent.DestName, spellMissed.MissType, spell.SpellName, 1);
                         }
                         break;
                 }
@@ -109,6 +115,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
             _statsReporting.ReportTable(table, "Avoidance", Fight, State, length);
 
             _statsReporting.Report(_attackAvoidedByEntityFromEntity, "Avoidance by Monster by Miss Type (% of all avoidance during fight)", Fight, State);
+            _statsReporting.Report(_damageAvoidedByEntityfromTypeByattack, "Avoidance attack types", Fight, State);
         }
 
         public override void StartFight(ICombatEvent combatEvent)
