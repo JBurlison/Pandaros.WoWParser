@@ -31,7 +31,7 @@ namespace Pandaros.WoWParser.Parser.Calculators
 
         public override void FinalizeFight(ICombatEvent combatEvent)
         {
-            _statsReporting.Report(_spellsCast, "Spells Cast", Fight, State);
+            _statsReporting.Report(_spellsCast, "Spells Cast", Fight, State, true);
         }
 
         public override void StartFight(ICombatEvent combatEvent)
